@@ -64,6 +64,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SETTING\Form_Identitas_Pendidik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SETTING\Form_Identitas_Pendidik.Designer.cs">
+      <DependentUpon>Form_Identitas_Pendidik.cs</DependentUpon>
+    </Compile>
     <Compile Include="SETTING\Form_Set_Identitas_Kampus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SETTING\Form_Identitas_Pendidik.resx">
+      <DependentUpon>Form_Identitas_Pendidik.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SETTING\Form_Set_Identitas_Kampus.resx">
       <DependentUpon>Form_Set_Identitas_Kampus.cs</DependentUpon>
     </EmbeddedResource>

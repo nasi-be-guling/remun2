@@ -66,7 +66,7 @@ namespace remun2.SETTING
                 return;
             }
             MySqlTransaction _transaction = _connection.BeginTransaction();
-            _sqlQuery = "insert into t_kampus (jenis, nama, rektor, fakultas, dekan, jurusan, kajur, logo) " + 
+            _sqlQuery = "insert into t_kampus (jenis, nama, rektor, fakultas, dekan, jurusan, kajur, logo) " +
                 " values (@jenis, @nama, @rektor, @fakultas, @dekan, @jurusan, @kajur, @logo)";
             MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection, _transaction);
 
@@ -88,8 +88,18 @@ namespace remun2.SETTING
             cmd.Parameters["@kajur"].Value = txtNamaKaJur.Text;
             cmd.Parameters["@logo"].Value = ImageData;
 
-            int rowsAffected = cmd.ExecuteNonQuery();
-                     
+            int rowsAffected = 0;
+            
+            try
+            {
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
+                return;
+            }
+
             if (errMsg != "")
             {
                 _transaction.Rollback();
@@ -113,7 +123,7 @@ namespace remun2.SETTING
             try
             {
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
-                openFileDialog1.Filter = "Image Files | *.jpg";
+                openFileDialog1.Filter = "Image Files | *.docx";
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     txtLogo.Text = openFileDialog1.FileName;
@@ -134,7 +144,7 @@ namespace remun2.SETTING
             try
             {
                 string FileName = ImageFileNames;
-                
+
                 fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
                 br = new BinaryReader(fs);
                 ImageData = br.ReadBytes((int)fs.Length);
@@ -146,6 +156,53 @@ namespace remun2.SETTING
             {
                 MessageBox.Show("Terjadi kesalahan file stream dengan kode:" + ex.Message);
                 return;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string errMsg = "";
+            _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return;
+            }
+
+            _sqlQuery = "select logo from t_kampus where id = @id";
+            MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection);
+
+            cmd.Parameters.AddWithValue("@id", "1");
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return;
+            }
+            try
+            {
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    var blob = new Byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
+                    reader.GetBytes(0, 0, blob, 0, blob.Length);
+
+                    SaveFileDialog saveDialog1 = new SaveFileDialog();
+                    saveDialog1.Filter = "Microsoft document file|*.docx | All File|*.*";
+                    saveDialog1.FilterIndex = 2;
+                    saveDialog1.RestoreDirectory = true;
+                    if (saveDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        using (var fs = new FileStream(saveDialog1.FileName, FileMode.Create, FileAccess.Write))
+                            fs.Write(blob, 0, blob.Length);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
             }
         }
     }
