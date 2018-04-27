@@ -64,13 +64,14 @@
             this.cbJurusan = new System.Windows.Forms.ComboBox();
             this.cbProgStudi = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 29);
+            this.label1.Location = new System.Drawing.Point(92, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 20);
             this.label1.TabIndex = 0;
@@ -80,7 +81,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 62);
+            this.label2.Location = new System.Drawing.Point(92, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 20);
             this.label2.TabIndex = 2;
@@ -90,7 +91,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 95);
+            this.label3.Location = new System.Drawing.Point(92, 114);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 20);
             this.label3.TabIndex = 6;
@@ -100,7 +101,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 128);
+            this.label4.Location = new System.Drawing.Point(92, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 20);
             this.label4.TabIndex = 8;
@@ -110,7 +111,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 161);
+            this.label5.Location = new System.Drawing.Point(92, 180);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 20);
             this.label5.TabIndex = 10;
@@ -120,7 +121,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 194);
+            this.label6.Location = new System.Drawing.Point(92, 213);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(144, 20);
             this.label6.TabIndex = 12;
@@ -130,7 +131,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 227);
+            this.label7.Location = new System.Drawing.Point(92, 246);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 20);
             this.label7.TabIndex = 14;
@@ -140,7 +141,7 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(24, 260);
+            this.label8.Location = new System.Drawing.Point(92, 279);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 20);
             this.label8.TabIndex = 18;
@@ -150,7 +151,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(24, 293);
+            this.label9.Location = new System.Drawing.Point(92, 312);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 20);
             this.label9.TabIndex = 20;
@@ -160,7 +161,7 @@
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 326);
+            this.label10.Location = new System.Drawing.Point(91, 345);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 20);
             this.label10.TabIndex = 22;
@@ -170,7 +171,7 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(24, 359);
+            this.label11.Location = new System.Drawing.Point(91, 378);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(68, 20);
             this.label11.TabIndex = 24;
@@ -180,7 +181,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(24, 392);
+            this.label12.Location = new System.Drawing.Point(91, 411);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(125, 20);
             this.label12.TabIndex = 26;
@@ -190,7 +191,7 @@
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(24, 425);
+            this.label13.Location = new System.Drawing.Point(91, 444);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(80, 20);
             this.label13.TabIndex = 28;
@@ -200,7 +201,7 @@
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(24, 458);
+            this.label14.Location = new System.Drawing.Point(91, 477);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(168, 20);
             this.label14.TabIndex = 30;
@@ -210,7 +211,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(24, 491);
+            this.label15.Location = new System.Drawing.Point(91, 510);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 20);
             this.label15.TabIndex = 32;
@@ -220,7 +221,8 @@
             // 
             this.txtNoSertifikat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNoSertifikat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNoSertifikat.Location = new System.Drawing.Point(202, 26);
+            this.txtNoSertifikat.Location = new System.Drawing.Point(282, 45);
+            this.txtNoSertifikat.MaxLength = 50;
             this.txtNoSertifikat.Name = "txtNoSertifikat";
             this.txtNoSertifikat.Size = new System.Drawing.Size(240, 27);
             this.txtNoSertifikat.TabIndex = 1;
@@ -229,7 +231,8 @@
             // 
             this.txtNIP.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNIP.Location = new System.Drawing.Point(202, 59);
+            this.txtNIP.Location = new System.Drawing.Point(282, 78);
+            this.txtNIP.MaxLength = 19;
             this.txtNIP.Name = "txtNIP";
             this.txtNIP.Size = new System.Drawing.Size(240, 27);
             this.txtNIP.TabIndex = 3;
@@ -238,7 +241,7 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(456, 62);
+            this.label16.Location = new System.Drawing.Point(536, 81);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(46, 20);
             this.label16.TabIndex = 4;
@@ -248,7 +251,8 @@
             // 
             this.txtNama.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNama.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNama.Location = new System.Drawing.Point(202, 92);
+            this.txtNama.Location = new System.Drawing.Point(282, 111);
+            this.txtNama.MaxLength = 255;
             this.txtNama.Name = "txtNama";
             this.txtNama.Size = new System.Drawing.Size(485, 27);
             this.txtNama.TabIndex = 7;
@@ -257,7 +261,8 @@
             // 
             this.txtJabFungsional.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtJabFungsional.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtJabFungsional.Location = new System.Drawing.Point(202, 191);
+            this.txtJabFungsional.Location = new System.Drawing.Point(282, 210);
+            this.txtJabFungsional.MaxLength = 255;
             this.txtJabFungsional.Name = "txtJabFungsional";
             this.txtJabFungsional.Size = new System.Drawing.Size(300, 27);
             this.txtJabFungsional.TabIndex = 13;
@@ -266,7 +271,8 @@
             // 
             this.txtTempatLhr.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtTempatLhr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTempatLhr.Location = new System.Drawing.Point(512, 225);
+            this.txtTempatLhr.Location = new System.Drawing.Point(592, 244);
+            this.txtTempatLhr.MaxLength = 255;
             this.txtTempatLhr.Name = "txtTempatLhr";
             this.txtTempatLhr.Size = new System.Drawing.Size(175, 27);
             this.txtTempatLhr.TabIndex = 17;
@@ -275,7 +281,8 @@
             // 
             this.txtS1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtS1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtS1.Location = new System.Drawing.Point(202, 257);
+            this.txtS1.Location = new System.Drawing.Point(282, 276);
+            this.txtS1.MaxLength = 255;
             this.txtS1.Name = "txtS1";
             this.txtS1.Size = new System.Drawing.Size(485, 27);
             this.txtS1.TabIndex = 19;
@@ -284,7 +291,8 @@
             // 
             this.txtS2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtS2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtS2.Location = new System.Drawing.Point(202, 290);
+            this.txtS2.Location = new System.Drawing.Point(282, 309);
+            this.txtS2.MaxLength = 255;
             this.txtS2.Name = "txtS2";
             this.txtS2.Size = new System.Drawing.Size(485, 27);
             this.txtS2.TabIndex = 21;
@@ -293,7 +301,8 @@
             // 
             this.txtS3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtS3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtS3.Location = new System.Drawing.Point(202, 323);
+            this.txtS3.Location = new System.Drawing.Point(282, 342);
+            this.txtS3.MaxLength = 255;
             this.txtS3.Name = "txtS3";
             this.txtS3.Size = new System.Drawing.Size(485, 27);
             this.txtS3.TabIndex = 23;
@@ -302,7 +311,8 @@
             // 
             this.txtBidangIlmu.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBidangIlmu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBidangIlmu.Location = new System.Drawing.Point(202, 389);
+            this.txtBidangIlmu.Location = new System.Drawing.Point(282, 408);
+            this.txtBidangIlmu.MaxLength = 255;
             this.txtBidangIlmu.Name = "txtBidangIlmu";
             this.txtBidangIlmu.Size = new System.Drawing.Size(485, 27);
             this.txtBidangIlmu.TabIndex = 27;
@@ -311,7 +321,8 @@
             // 
             this.txtNoHP.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNoHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNoHP.Location = new System.Drawing.Point(202, 422);
+            this.txtNoHP.Location = new System.Drawing.Point(282, 441);
+            this.txtNoHP.MaxLength = 15;
             this.txtNoHP.Name = "txtNoHP";
             this.txtNoHP.Size = new System.Drawing.Size(240, 27);
             this.txtNoHP.TabIndex = 29;
@@ -320,7 +331,8 @@
             // 
             this.txtAtasanLangsung.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtAtasanLangsung.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAtasanLangsung.Location = new System.Drawing.Point(202, 455);
+            this.txtAtasanLangsung.Location = new System.Drawing.Point(282, 474);
+            this.txtAtasanLangsung.MaxLength = 255;
             this.txtAtasanLangsung.Name = "txtAtasanLangsung";
             this.txtAtasanLangsung.Size = new System.Drawing.Size(485, 27);
             this.txtAtasanLangsung.TabIndex = 31;
@@ -329,7 +341,8 @@
             // 
             this.txtNIDN.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNIDN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNIDN.Location = new System.Drawing.Point(512, 59);
+            this.txtNIDN.Location = new System.Drawing.Point(592, 78);
+            this.txtNIDN.MaxLength = 50;
             this.txtNIDN.Name = "txtNIDN";
             this.txtNIDN.Size = new System.Drawing.Size(175, 27);
             this.txtNIDN.TabIndex = 5;
@@ -338,7 +351,8 @@
             // 
             this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Location = new System.Drawing.Point(202, 488);
+            this.txtEmail.Location = new System.Drawing.Point(282, 507);
+            this.txtEmail.MaxLength = 255;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(485, 27);
             this.txtEmail.TabIndex = 33;
@@ -346,7 +360,7 @@
             // dtpTglLahir
             // 
             this.dtpTglLahir.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dtpTglLahir.Location = new System.Drawing.Point(202, 225);
+            this.dtpTglLahir.Location = new System.Drawing.Point(282, 244);
             this.dtpTglLahir.Name = "dtpTglLahir";
             this.dtpTglLahir.Size = new System.Drawing.Size(200, 27);
             this.dtpTglLahir.TabIndex = 15;
@@ -355,7 +369,7 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(416, 228);
+            this.label17.Location = new System.Drawing.Point(496, 247);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(93, 20);
             this.label17.TabIndex = 16;
@@ -365,17 +379,22 @@
             // 
             this.cbJenis.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbJenis.FormattingEnabled = true;
-            this.cbJenis.Location = new System.Drawing.Point(202, 355);
+            this.cbJenis.Items.AddRange(new object[] {
+            "DS - Dosen Biasa",
+            "DTT - Dosen Tambah Tugas",
+            "DT - Dosen Tugas Tambahan"});
+            this.cbJenis.Location = new System.Drawing.Point(282, 374);
             this.cbJenis.Name = "cbJenis";
-            this.cbJenis.Size = new System.Drawing.Size(240, 28);
+            this.cbJenis.Size = new System.Drawing.Size(288, 28);
             this.cbJenis.TabIndex = 25;
+            this.cbJenis.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbJenis_KeyPress);
             // 
             // bSave
             // 
             this.bSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.bSave.Location = new System.Drawing.Point(580, 538);
+            this.bSave.Location = new System.Drawing.Point(96, 561);
             this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(107, 43);
+            this.bSave.Size = new System.Drawing.Size(95, 43);
             this.bSave.TabIndex = 34;
             this.bSave.Text = "&SAVE";
             this.bSave.UseVisualStyleBackColor = true;
@@ -393,7 +412,7 @@
             "TEKNIK ELEKTROMEDIK",
             "KEPERAWATAN GIGI",
             "GIZI"});
-            this.cbJurusan.Location = new System.Drawing.Point(202, 124);
+            this.cbJurusan.Location = new System.Drawing.Point(282, 143);
             this.cbJurusan.Name = "cbJurusan";
             this.cbJurusan.Size = new System.Drawing.Size(371, 28);
             this.cbJurusan.TabIndex = 9;
@@ -404,7 +423,7 @@
             // 
             this.cbProgStudi.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbProgStudi.FormattingEnabled = true;
-            this.cbProgStudi.Location = new System.Drawing.Point(202, 157);
+            this.cbProgStudi.Location = new System.Drawing.Point(282, 176);
             this.cbProgStudi.Name = "cbProgStudi";
             this.cbProgStudi.Size = new System.Drawing.Size(371, 28);
             this.cbProgStudi.TabIndex = 11;
@@ -412,19 +431,32 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(612, 147);
+            this.button1.Location = new System.Drawing.Point(692, 147);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 38);
             this.button1.TabIndex = 35;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label18
+            // 
+            this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.Maroon;
+            this.label18.Location = new System.Drawing.Point(278, 537);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(388, 20);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "semua data harus diisi. Jika tidak ada maka diisi tanda \"-\"";
             // 
             // Form_Identitas_Pendidik
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 626);
+            this.ClientSize = new System.Drawing.Size(847, 638);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cbProgStudi);
             this.Controls.Add(this.cbJurusan);
@@ -468,7 +500,7 @@
             this.MinimizeBox = false;
             this.Name = "Form_Identitas_Pendidik";
             this.ShowInTaskbar = false;
-            this.Text = "Form_Identitas_Pendidik";
+            this.Text = "IDENTITAS TENAGA PENDIDIK";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -513,5 +545,6 @@
         private System.Windows.Forms.ComboBox cbJurusan;
         private System.Windows.Forms.ComboBox cbProgStudi;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label18;
     }
 }

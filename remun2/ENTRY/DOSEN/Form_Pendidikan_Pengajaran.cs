@@ -8,17 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using _encryption;
 using _connectMySQL;
+using System.Threading;
+using System.Globalization;
 
-namespace remun2.SETTING
+namespace remun2.ENTRY.DOSEN
 {
-    public partial class Form_Identitas_Pendidik : Form
+    public partial class Form_Pendidikan_Pengajaran : Form
     {
         #region KOMPONEN WAJIB
         private readonly CConnection _connect = new CConnection();
         private MySqlConnection _connection;
         private string _sqlQuery;
         private readonly string _configurationManager = Properties.Settings.Default.Setting;
+        private readonly CLASS.Class_TOOLS _tools = new CLASS.Class_TOOLS();
 
         /*
          * contoh class
@@ -132,26 +136,26 @@ namespace remun2.SETTING
                 string statusPK, string statusDP)
             {
                 this.id = id;
-                this.noSertifikat = noSertifikat;              
-                this.nip = nip;                 
-                this.nidn = nidn;            
-                this.nama = nama;            
+                this.noSertifikat = noSertifikat;
+                this.nip = nip;
+                this.nidn = nidn;
+                this.nama = nama;
                 this.jurusan = jurusan;
-                this.prodi = prodi;           
-                this.jabFung = jabFung;         
-                this.tglLahir = tglLahir;         
-                this.tempatLhr = tempatLhr;       
-                this.s1 = s1;              
-                this.s2 = s2;              
-                this.s3 = s3;              
-                this.jenis = jenis;           
-                this.bidangIlmu = bidangIlmu;      
-                this.noHP = noHP;            
-                this.atasanLangsung = atasanLangsung;  
-                this.email = email;           
-                this.statusPK = statusPK;        
-                this.statusDP = statusDP;        
-        }
+                this.prodi = prodi;
+                this.jabFung = jabFung;
+                this.tglLahir = tglLahir;
+                this.tempatLhr = tempatLhr;
+                this.s1 = s1;
+                this.s2 = s2;
+                this.s3 = s3;
+                this.jenis = jenis;
+                this.bidangIlmu = bidangIlmu;
+                this.noHP = noHP;
+                this.atasanLangsung = atasanLangsung;
+                this.email = email;
+                this.statusPK = statusPK;
+                this.statusDP = statusDP;
+            }
 
             public string Id
             {
@@ -258,34 +262,82 @@ namespace remun2.SETTING
 
         List<Identitas> _Identitas = new List<Identitas>();
 
-        public Form_Identitas_Pendidik()
+        public Form_Pendidikan_Pengajaran()
         {
             InitializeComponent();
         }
 
-        private bool CekTeksBoxKosong()
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            foreach (Control tb in Controls)
-            {
-                if (tb is TextBox)
-                {
-                    if (string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text))
-                        return false;
-                }
-                if (tb is ComboBox)
-                {
-                    if (string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text))
-                        return false;
-                }
-            }
-            return true;
+
         }
 
+        private void txtJamTarget_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == ','
+                && (sender as TextBox).Text.IndexOf(',') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtJamCapaian_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == ','
+                && (sender as TextBox).Text.IndexOf(',') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void bAdd_Click(object sender, EventArgs e)
+        {
+            double jamTarget = Convert.ToDouble(txtJamTarget.Text);
+            double jamCapaian = Convert.ToDouble(txtJamCapaian.Text);
+
+            string rekomendasi = string.Empty;
+
+            if (jamCapaian < jamTarget)
+                rekomendasi = "TIDAK TERCAPAI";
+            else if (jamCapaian >= jamTarget)
+                rekomendasi = "TERCAPAI";
+
+            int noUrut = 1;
+            if (lvTampil.Items.Count > 0)
+                noUrut = lvTampil.Items.Count + 1;
+            ListViewItem items = new ListViewItem(noUrut++.ToString());
+            items.SubItems.Add(txtJenisKegiatan.Text);
+            items.SubItems.Add(txtBuktiPenugasan.Text);
+            items.SubItems.Add(txtJamTarget.Text);
+            items.SubItems.Add(txtMasaPenugasan.Text);
+            items.SubItems.Add(txtBuktiDokumen.Text);
+            items.SubItems.Add(txtJamCapaian.Text);
+            items.SubItems.Add(rekomendasi);
+            lvTampil.Items.Add(items);
+            //lvTampil.Columns[7].Width = 0;
+            //lvTampil.Columns[8].Width = 0;
+            //lvTampil.Columns[9].Width = 0;
+            Bersih2();
+            txtJenisKegiatan.Focus();
+        }
+                
         private void bSave_Click(object sender, EventArgs e)
         {
-            if (!CekTeksBoxKosong())
+            if (!_tools.CekTeksBoxKosong(groupBox2.Controls) || !_tools.CekTeksBoxKosong(groupBox3.Controls))
             {
-                MessageBox.Show("Harap isi semua data", "PERHATIAN");
+                MessageBox.Show("Tidak boleh Kosong atau Nol", "PERHATIAN");
                 return;
             }
 
@@ -323,25 +375,25 @@ namespace remun2.SETTING
             cmd.Parameters.Add("@statusPK", MySqlDbType.Bit, 1);
             cmd.Parameters.Add("@statusDP", MySqlDbType.Bit, 1);
 
-            cmd.Parameters["@noSertifikat"].Value = txtNoSertifikat.Text;
-            cmd.Parameters["@nip"].Value = txtNIP.Text;
-            cmd.Parameters["@nidn"].Value = txtNIDN.Text;
-            cmd.Parameters["@nama"].Value = txtNama.Text;
-            cmd.Parameters["@jurusan"].Value = cbJurusan.Text;
-            cmd.Parameters["@prodi"].Value = cbProgStudi.Text;
-            cmd.Parameters["@jabFung"].Value = txtJabFungsional.Text;
-            cmd.Parameters["@tglLahir"].Value = String.Format("{0:yyyy-MM-dd}", dtpTglLahir.Value);
-            cmd.Parameters["@tempatLhr"].Value = txtTempatLhr.Text;
-            cmd.Parameters["@s1"].Value = txtS1.Text;
-            cmd.Parameters["@s2"].Value = txtS2.Text;
-            cmd.Parameters["@s3"].Value = txtS3.Text;
-            cmd.Parameters["@jenis"].Value = cbJenis.Text.Split(' ')[0];
-            cmd.Parameters["@bidangIlmu"].Value = txtBidangIlmu.Text;
-            cmd.Parameters["@noHP"].Value = txtNoHP.Text;
-            cmd.Parameters["@atasanLangsung"].Value = txtAtasanLangsung.Text;
-            cmd.Parameters["@email"].Value = txtEmail.Text;
-            cmd.Parameters["@statusPK"].Value = "0";
-            cmd.Parameters["@statusDP"].Value = "1";
+            //cmd.Parameters["@noSertifikat"].Value = txtNoSertifikat.Text;
+            //cmd.Parameters["@nip"].Value = txtNIP.Text;
+            //cmd.Parameters["@nidn"].Value = txtNIDN.Text;
+            //cmd.Parameters["@nama"].Value = txtNama.Text;
+            //cmd.Parameters["@jurusan"].Value = cbJurusan.Text;
+            //cmd.Parameters["@prodi"].Value = cbProgStudi.Text;
+            //cmd.Parameters["@jabFung"].Value = txtJabFungsional.Text;
+            //cmd.Parameters["@tglLahir"].Value = String.Format("{0:yyyy-MM-dd}", dtpTglLahir.Value);
+            //cmd.Parameters["@tempatLhr"].Value = txtTempatLhr.Text;
+            //cmd.Parameters["@s1"].Value = txtS1.Text;
+            //cmd.Parameters["@s2"].Value = txtS2.Text;
+            //cmd.Parameters["@s3"].Value = txtS3.Text;
+            //cmd.Parameters["@jenis"].Value = cbJenis.Text.Split(' ')[0];
+            //cmd.Parameters["@bidangIlmu"].Value = txtBidangIlmu.Text;
+            //cmd.Parameters["@noHP"].Value = txtNoHP.Text;
+            //cmd.Parameters["@atasanLangsung"].Value = txtAtasanLangsung.Text;
+            //cmd.Parameters["@email"].Value = txtEmail.Text;
+            //cmd.Parameters["@statusPK"].Value = "0";
+            //cmd.Parameters["@statusDP"].Value = "1";
 
 
             int rowsAffected = 0;
@@ -374,7 +426,7 @@ namespace remun2.SETTING
 
         private void Bersih2()
         {
-            foreach (Control tb in Controls)
+            foreach (Control tb in groupBox2.Controls)
             {
                 if (tb is TextBox)
                 {
@@ -385,64 +437,17 @@ namespace remun2.SETTING
                     tb.Text = "";
                 }
             }
-        }
-
-        private void cbJurusan_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void cbProgStudi_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void cbJurusan_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbProgStudi.Text = string.Empty;
-            cbProgStudi.Items.Clear();
-            if (cbJurusan.SelectedIndex == 0)
+            foreach (Control tb in groupBox3.Controls)
             {
-                cbProgStudi.Items.AddRange(new string[] {"D4 KEPERAWATAN SOETOMO", "D3 KEPERAWATAN SOETOMO", "D3 KEPERAWATAN SUTOPO",
-                    "D3 KEPERAWATAN SIDOARJO", "D3 KEPERAWATAN TUBAN"});
+                if (tb is TextBox)
+                {
+                    tb.Text = "";
+                }
+                if (tb is ComboBox)
+                {
+                    tb.Text = "";
+                }
             }
-            else if (cbJurusan.SelectedIndex == 1)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D4 KEBIDANAN SUTOMO", "D3 KEBIDANAN SUTOMO", "D3 KEBIDANAN BANGKALAN",
-                    "D3 KEBIDANAN MAGETAN"});
-            }
-            else if (cbJurusan.SelectedIndex == 2)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D4 KESEHATAN LINGKUNGAN SURABAYA", "D3 KESEHATAN LINGKUNGAN SURABAYA",
-                    "D3 KESEHATAN LINGKUNGAN MAGETAN"});
-            }
-            else if (cbJurusan.SelectedIndex == 3)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D4 ANALIS KESEHATAN", "D3 ANALIS KESEHATAN"});
-            }
-            else if (cbJurusan.SelectedIndex == 4)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D4 TEKNIK ELEKTROMEDIK", "D3 TEKNIK ELEKTROMEDIK"});
-            }
-            else if (cbJurusan.SelectedIndex == 5)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D4 KEPERAWATAN GIGI", "D3 KEPERAWATAN GIGI"});
-            }
-            else if (cbJurusan.SelectedIndex == 6)
-            {
-                cbProgStudi.Items.AddRange(new string[] {"D3 GIZI"});
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //MessageBox.Show(String.Format("{0:yyyy-MM-dd}", dtpTglLahir.Value));
-            MessageBox.Show(cbJenis.Text.Split(' ')[0]);
-        }
-
-        private void cbJenis_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
         }
     }
 }

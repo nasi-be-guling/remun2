@@ -16,7 +16,7 @@ namespace remun2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SETTING.Form_Identitas_Pendidik());
+            Application.Run(new ENTRY.DOSEN.Form_Pendidikan_Pengajaran());
         }
     }
 }
