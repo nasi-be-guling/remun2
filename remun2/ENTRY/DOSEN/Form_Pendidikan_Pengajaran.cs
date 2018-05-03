@@ -300,6 +300,7 @@ namespace remun2.ENTRY.DOSEN
                     SaveFileDialog saveDialog1 = new SaveFileDialog();
                     saveDialog1.Filter = "Microsoft document file|*.docx";
                     saveDialog1.RestoreDirectory = true;
+                    saveDialog1.FileName = "PEDOMAN PENETAPAN INDIKATOR KINERJA INDIVIDU DOSEN";
                     if (saveDialog1.ShowDialog() == DialogResult.OK)
                     {
                         using (var fs = new FileStream(saveDialog1.FileName, FileMode.Create, FileAccess.Write))
@@ -572,6 +573,12 @@ namespace remun2.ENTRY.DOSEN
 
                 fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
                 br = new BinaryReader(fs);
+                if (fs.Length > 15000000)
+                {
+                    MessageBox.Show("File upload tidak boleh melebihi 15 MB", "ERROR");
+                    return;
+                }
+
                 ImageData = br.ReadBytes((int)fs.Length);
 
                 br.Close();
@@ -597,7 +604,7 @@ namespace remun2.ENTRY.DOSEN
 
             cmd.Parameters.Add("@berkas", MySqlDbType.MediumBlob);
 
-            cmd.Parameters["@jenis"].Value = ImageData;
+            cmd.Parameters["@berkas"].Value = ImageData;
 
             int rowsAffected = 0;
 

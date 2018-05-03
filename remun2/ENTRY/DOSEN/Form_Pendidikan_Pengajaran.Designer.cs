@@ -61,8 +61,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.bAdd = new System.Windows.Forms.Button();
             this.bLoad = new System.Windows.Forms.Button();
+            this.bAdd = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -401,16 +401,6 @@
             this.panel1.Size = new System.Drawing.Size(1093, 248);
             this.panel1.TabIndex = 0;
             // 
-            // bAdd
-            // 
-            this.bAdd.Location = new System.Drawing.Point(961, 28);
-            this.bAdd.Name = "bAdd";
-            this.bAdd.Size = new System.Drawing.Size(112, 91);
-            this.bAdd.TabIndex = 12;
-            this.bAdd.Text = "ADD";
-            this.bAdd.UseVisualStyleBackColor = true;
-            this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
-            // 
             // bLoad
             // 
             this.bLoad.Location = new System.Drawing.Point(961, 139);
@@ -420,6 +410,16 @@
             this.bLoad.Text = "LOAD";
             this.bLoad.UseVisualStyleBackColor = true;
             this.bLoad.Visible = false;
+            // 
+            // bAdd
+            // 
+            this.bAdd.Location = new System.Drawing.Point(961, 28);
+            this.bAdd.Name = "bAdd";
+            this.bAdd.Size = new System.Drawing.Size(112, 91);
+            this.bAdd.TabIndex = 12;
+            this.bAdd.Text = "ADD";
+            this.bAdd.UseVisualStyleBackColor = true;
+            this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
             // 
             // button2
             // 
