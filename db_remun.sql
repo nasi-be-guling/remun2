@@ -16,6 +16,19 @@ CREATE DATABASE IF NOT EXISTS `remun` /*!40100 DEFAULT CHARACTER SET utf8 COLLAT
 USE `remun`;
 
 
+-- Dumping structure for table remun.t_dokumentasi
+DROP TABLE IF EXISTS `t_dokumentasi`;
+CREATE TABLE IF NOT EXISTS `t_dokumentasi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `berkas` mediumblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabel untuk menampung segala jenis berkas dokumentasi (Juknis, Rubrik, Manual, dll)';
+
+-- Dumping data for table remun.t_dokumentasi: ~0 rows (approximately)
+/*!40000 ALTER TABLE `t_dokumentasi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_dokumentasi` ENABLE KEYS */;
+
+
 -- Dumping structure for table remun.t_identitas
 DROP TABLE IF EXISTS `t_identitas`;
 CREATE TABLE IF NOT EXISTS `t_identitas` (
@@ -41,13 +54,16 @@ CREATE TABLE IF NOT EXISTS `t_identitas` (
   `statusDP` bit(1) DEFAULT b'1' COMMENT '1 is Dipakai',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabel yg menampung data identitas penginput remun';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabel yg menampung data identitas penginput remun';
 
--- Dumping data for table remun.t_identitas: ~2 rows (approximately)
+-- Dumping data for table remun.t_identitas: ~5 rows (approximately)
 /*!40000 ALTER TABLE `t_identitas` DISABLE KEYS */;
 REPLACE INTO `t_identitas` (`id`, `noSertifikat`, `nip`, `nidn`, `nama`, `jurusan`, `prodi`, `jabFung`, `tglLahir`, `tempatLhr`, `s1`, `s2`, `s3`, `jenis`, `bidangIlmu`, `noHP`, `atasanLangsung`, `email`, `statusPK`, `statusDP`) VALUES
 	(1, '123123123123', '199909092015031002', '12312312', 'S\'U\'dah', 'KEPERAWATAN', 'D4 KEPERAWATAN SOETOMO', 'asdasdasdad', '2018-04-27', 'adadadas', 'asdadad', 'sadas', 'asdasd', 'DS', 'asdadasda', '9861236193', 'asdasdas', 'asdadasd', b'0', b'1'),
-	(2, '123123123', '123123123123123', '1231231231', 'daadaada', 'KEPERAWATAN', 'D4 KEPERAWATAN SOETOMO', 'adadasds', '2018-04-27', 'asdada', 'daad', 'asdasa', '-', 'DS', 'asdada', '234234234', 'dfsds', '234ffsdfsf', b'0', b'1');
+	(2, '123123123', '123123123123123', '1231231231', 'daadaada', 'KEPERAWATAN', 'D4 KEPERAWATAN SOETOMO', 'adadasds', '2018-04-27', 'asdada', 'daad', 'asdasa', '-', 'DS', 'asdada', '234234234', 'dfsds', '234ffsdfsf', b'0', b'1'),
+	(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_identitas` ENABLE KEYS */;
 
 
@@ -75,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `t_kampus` (
 DROP TABLE IF EXISTS `t_unsur`;
 CREATE TABLE IF NOT EXISTS `t_unsur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipeUnsur` int(11) NOT NULL COMMENT '1.Pendidikan pengajaran, 2.Penelitian, 3.Pengabmas, 4.Kegiatan Penunjang',
+  `tipeUnsur` int(2) NOT NULL COMMENT '1.Pendidikan pengajaran, 2.Penelitian, 3.Pengabmas, 4.Kegiatan Penunjang',
   `jenisKegiatan` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `buktiPenugasan` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `jamTarget` double NOT NULL,
@@ -83,17 +99,25 @@ CREATE TABLE IF NOT EXISTS `t_unsur` (
   `buktiDokumen` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `jamCapaian` double NOT NULL,
   `rekomendasi` varchar(60) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Tercapai, tidak tercapai, lebih',
-  `bulan` int(11) NOT NULL,
-  `tahun` int(11) NOT NULL,
+  `bulan` int(2) NOT NULL,
+  `tahun` int(4) NOT NULL,
   `tanggal` datetime NOT NULL,
   `tanggalUpdate` datetime DEFAULT NULL,
   `statusDP` bit(1) NOT NULL DEFAULT b'1',
   `idUser` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabel untuk menampung seluruh kegiatan dosen. We put all record despite of Unsur into one single tabel. We hope this will do. If not we''ll going to split table into different table based on Unsur.';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabel untuk menampung seluruh kegiatan dosen. We put all record despite of Unsur into one single tabel. We hope this will do. If not we''ll going to split table into different table based on Unsur.';
 
--- Dumping data for table remun.t_unsur: ~0 rows (approximately)
+-- Dumping data for table remun.t_unsur: ~6 rows (approximately)
 /*!40000 ALTER TABLE `t_unsur` DISABLE KEYS */;
+REPLACE INTO `t_unsur` (`id`, `tipeUnsur`, `jenisKegiatan`, `buktiPenugasan`, `jamTarget`, `masaPenugasan`, `buktiDokumen`, `jamCapaian`, `rekomendasi`, `bulan`, `tahun`, `tanggal`, `tanggalUpdate`, `statusDP`, `idUser`) VALUES
+	(1, 1, '1', '1', 1, '1', '1', 1, 'TERCAPAI', 5, 2018, '2018-05-03 10:56:51', NULL, b'1', 1),
+	(2, 1, '1', 'asd', 1, '1', '1', 1, 'TERCAPAI', 5, 2018, '2018-05-03 10:59:15', NULL, b'1', 1),
+	(3, 1, 'asdas', '1', 1, '1', 'sad', 1, 'TERCAPAI', 5, 2018, '2018-05-03 10:59:27', NULL, b'1', 1),
+	(4, 1, '1', 'sadd', 23, 'asd', 'asd', 123, 'TERCAPAI', 5, 2018, '2018-05-03 11:01:15', NULL, b'1', 1),
+	(5, 1, 'asdasdas', 'asdsa', 1, 'asdasd', 'asdas', 1, 'TERCAPAI', 5, 2018, '2018-05-03 11:03:06', NULL, b'1', 1),
+	(6, 1, 'asdasd', 'asdas', 1, 'asdas', 'asdasd', 1, 'TERCAPAI', 5, 2018, '2018-05-03 11:03:32', NULL, b'1', 1),
+	(7, 1, 'sfsdfsd', 'sdfsd', 0.5, 'dgdfgd', 'dfg', 0.2, 'TIDAK TERCAPAI', 5, 2018, '2018-05-03 11:03:55', NULL, b'1', 1);
 /*!40000 ALTER TABLE `t_unsur` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

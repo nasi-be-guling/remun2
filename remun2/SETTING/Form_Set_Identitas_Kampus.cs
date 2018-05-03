@@ -204,6 +204,7 @@ namespace remun2.SETTING
             {
                 MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
             }
+            _connection.Close();
         }
     }
 }

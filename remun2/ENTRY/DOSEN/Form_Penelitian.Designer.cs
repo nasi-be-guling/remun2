@@ -1,6 +1,6 @@
 ﻿namespace remun2.ENTRY.DOSEN
 {
-    partial class Form_Pendidikan_Pengajaran
+    partial class Form_Penelitian
     {
         /// <summary>
         /// Required designer variable.
@@ -38,11 +38,14 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bLoad = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbTahun = new System.Windows.Forms.ComboBox();
             this.cbBulan = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.bAdd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtJamCapaian = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -59,15 +62,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.bSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.bAdd = new System.Windows.Forms.Button();
-            this.bLoad = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvTampil
@@ -86,10 +84,10 @@
             this.columnHeader8});
             this.lvTampil.FullRowSelect = true;
             this.lvTampil.GridLines = true;
-            this.lvTampil.Location = new System.Drawing.Point(22, 324);
+            this.lvTampil.Location = new System.Drawing.Point(22, 304);
             this.lvTampil.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lvTampil.Name = "lvTampil";
-            this.lvTampil.Size = new System.Drawing.Size(1289, 410);
+            this.lvTampil.Size = new System.Drawing.Size(1289, 430);
             this.lvTampil.TabIndex = 20;
             this.lvTampil.UseCompatibleStateImageBehavior = false;
             this.lvTampil.View = System.Windows.Forms.View.Details;
@@ -137,7 +135,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(23, 299);
+            this.linkLabel1.Location = new System.Drawing.Point(18, 279);
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(333, 20);
@@ -146,13 +144,37 @@
             this.linkLabel1.Text = "Panduan konversi SKS ke JAM silahkan klik link ini";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.bLoad);
+            this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.bAdd);
+            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Location = new System.Drawing.Point(21, 24);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1058, 237);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ENTRY PENELITIAN";
+            // 
+            // bLoad
+            // 
+            this.bLoad.Location = new System.Drawing.Point(940, 139);
+            this.bLoad.Name = "bLoad";
+            this.bLoad.Size = new System.Drawing.Size(112, 91);
+            this.bLoad.TabIndex = 17;
+            this.bLoad.Text = "LOAD";
+            this.bLoad.UseVisualStyleBackColor = true;
+            this.bLoad.Visible = false;
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.cbTahun);
             this.groupBox4.Controls.Add(this.cbBulan);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Location = new System.Drawing.Point(489, 133);
+            this.groupBox4.Location = new System.Drawing.Point(488, 128);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(446, 102);
             this.groupBox4.TabIndex = 13;
@@ -218,13 +240,23 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Bulan";
             // 
+            // bAdd
+            // 
+            this.bAdd.Location = new System.Drawing.Point(940, 28);
+            this.bAdd.Name = "bAdd";
+            this.bAdd.Size = new System.Drawing.Size(112, 91);
+            this.bAdd.TabIndex = 12;
+            this.bAdd.Text = "ADD";
+            this.bAdd.UseVisualStyleBackColor = true;
+            this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txtJamCapaian);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtBuktiDokumen);
-            this.groupBox3.Location = new System.Drawing.Point(489, 25);
+            this.groupBox3.Location = new System.Drawing.Point(488, 20);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(446, 99);
             this.groupBox3.TabIndex = 8;
@@ -276,7 +308,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtJenisKegiatan);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 25);
+            this.groupBox2.Location = new System.Drawing.Point(6, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(465, 210);
             this.groupBox2.TabIndex = 0;
@@ -356,7 +388,7 @@
             // bSave
             // 
             this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bSave.Location = new System.Drawing.Point(1175, 214);
+            this.bSave.Location = new System.Drawing.Point(1175, 190);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(136, 68);
             this.bSave.TabIndex = 18;
@@ -366,7 +398,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1133, 34);
+            this.button1.Location = new System.Drawing.Point(1095, 34);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 41);
             this.button1.TabIndex = 21;
@@ -375,71 +407,14 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(0, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(277, 20);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "ENTRY PENDIDIKAN DAN PENGAJARAN";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.bLoad);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.bAdd);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.groupBox4);
-            this.panel1.Location = new System.Drawing.Point(22, 34);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1093, 248);
-            this.panel1.TabIndex = 0;
-            // 
-            // bAdd
-            // 
-            this.bAdd.Location = new System.Drawing.Point(961, 28);
-            this.bAdd.Name = "bAdd";
-            this.bAdd.Size = new System.Drawing.Size(112, 91);
-            this.bAdd.TabIndex = 12;
-            this.bAdd.Text = "ADD";
-            this.bAdd.UseVisualStyleBackColor = true;
-            this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
-            // 
-            // bLoad
-            // 
-            this.bLoad.Location = new System.Drawing.Point(961, 139);
-            this.bLoad.Name = "bLoad";
-            this.bLoad.Size = new System.Drawing.Size(112, 91);
-            this.bLoad.TabIndex = 17;
-            this.bLoad.Text = "LOAD";
-            this.bLoad.UseVisualStyleBackColor = true;
-            this.bLoad.Visible = false;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1133, 80);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 56);
-            this.button2.TabIndex = 22;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // Form_Pendidikan_Pengajaran
+            // Form_Penelitian
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1328, 748);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bSave);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lvTampil);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -447,18 +422,17 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_Pendidikan_Pengajaran";
+            this.Name = "Form_Penelitian";
             this.ShowIcon = false;
-            this.Text = "ENTRY PENDIDIKAN DAN PENGAJARAN";
+            this.Text = "ENTRY PENELITIAN";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -476,6 +450,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button bAdd;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtBuktiDokumen;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -491,16 +467,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button bSave;
+        private System.Windows.Forms.Button bLoad;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cbTahun;
         private System.Windows.Forms.ComboBox cbBulan;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button bLoad;
-        private System.Windows.Forms.Button bAdd;
-        private System.Windows.Forms.Button button2;
     }
 }

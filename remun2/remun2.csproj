@@ -63,6 +63,12 @@
     <Compile Include="ENTRY\DOSEN\Form_Pendidikan_Pengajaran.Designer.cs">
       <DependentUpon>Form_Pendidikan_Pengajaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="ENTRY\DOSEN\Form_Penelitian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ENTRY\DOSEN\Form_Penelitian.Designer.cs">
+      <DependentUpon>Form_Penelitian.cs</DependentUpon>
+    </Compile>
     <Compile Include="MAIN\Form_Utama.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <EmbeddedResource Include="ENTRY\DOSEN\Form_Pendidikan_Pengajaran.resx">
       <DependentUpon>Form_Pendidikan_Pengajaran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ENTRY\DOSEN\Form_Penelitian.resx">
+      <DependentUpon>Form_Penelitian.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MAIN\Form_Utama.resx">
       <DependentUpon>Form_Utama.cs</DependentUpon>

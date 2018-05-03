@@ -12,11 +12,10 @@ using _encryption;
 using _connectMySQL;
 using System.Threading;
 using System.Globalization;
-using System.IO;
 
 namespace remun2.ENTRY.DOSEN
 {
-    public partial class Form_Pendidikan_Pengajaran : Form
+    public partial class Form_Penelitian : Form
     {
         #region KOMPONEN WAJIB
         private readonly CConnection _connect = new CConnection();
@@ -263,56 +262,14 @@ namespace remun2.ENTRY.DOSEN
 
         List<Identitas> _Identitas = new List<Identitas>();
 
-        public Form_Pendidikan_Pengajaran()
+        public Form_Penelitian()
         {
             InitializeComponent();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string errMsg = "";
-            _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
-            if (errMsg != "")
-            {
-                MessageBox.Show(errMsg);
-                return;
-            }
 
-            _sqlQuery = "select berkas from t_dokumentasi where id = @id";
-            MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection);
-
-            cmd.Parameters.AddWithValue("@id", "1");
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            if (errMsg != "")
-            {
-                MessageBox.Show(errMsg);
-                return;
-            }
-            try
-            {
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    var blob = new Byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
-                    reader.GetBytes(0, 0, blob, 0, blob.Length);
-
-                    SaveFileDialog saveDialog1 = new SaveFileDialog();
-                    saveDialog1.Filter = "Microsoft document file|*.docx";
-                    saveDialog1.RestoreDirectory = true;
-                    if (saveDialog1.ShowDialog() == DialogResult.OK)
-                    {
-                        using (var fs = new FileStream(saveDialog1.FileName, FileMode.Create, FileAccess.Write))
-                            fs.Write(blob, 0, blob.Length);
-                    }
-                    reader.Close();
-                }
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
-            }
-            _connection.Close();
         }
 
         private void txtJamTarget_KeyPress(object sender, KeyPressEventArgs e)
@@ -387,7 +344,7 @@ namespace remun2.ENTRY.DOSEN
             Bersih2();
             txtJenisKegiatan.Focus();
         }
-                
+
         private void bSave_Click(object sender, EventArgs e)
         {
             string errMsg = "";
@@ -424,7 +381,7 @@ namespace remun2.ENTRY.DOSEN
             {
                 //MessageBox.Show(items.SubItems[1].Text + "|" + items.SubItems[2].Text + "|" + items.SubItems[3].Text + "|" + items.SubItems[4].Text + 
                 //    "|" + items.SubItems[5].Text + "|" + items.SubItems[6].Text + "|" + items.SubItems[7].Text);
-                cmd.Parameters["@tipeUnsur"].Value = "1";
+                cmd.Parameters["@tipeUnsur"].Value = "2";
                 cmd.Parameters["@jenisKegiatan"].Value = items.SubItems[1].Text;
                 cmd.Parameters["@buktiPenugasan"].Value = items.SubItems[2].Text;
                 cmd.Parameters["@jamTarget"].Value = items.SubItems[3].Text;
@@ -538,92 +495,6 @@ namespace remun2.ENTRY.DOSEN
             {
                 MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
             }
-            _connection.Close();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // ============================= file stream ================================
-            string ImageFileNames;
-            byte[] ImageData;
-            try
-            {
-                OpenFileDialog openFileDialog1 = new OpenFileDialog();
-                openFileDialog1.Filter = "Image Files | *.docx";
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    ImageFileNames = openFileDialog1.FileName;
-                }
-                else
-                    return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Terjadi kesalahan membuka berkas dengan kode:" + ex.Message);
-                return;
-            }
-
-            FileStream fs;
-            BinaryReader br;
-
-            try
-            {
-                string FileName = ImageFileNames;
-
-                fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
-                br = new BinaryReader(fs);
-                ImageData = br.ReadBytes((int)fs.Length);
-
-                br.Close();
-                fs.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Terjadi kesalahan file stream dengan kode:" + ex.Message);
-                return;
-            }
-
-            // ========================== end of file stream ============================
-            string errMsg = "";
-            _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
-            if (errMsg != "")
-            {
-                MessageBox.Show(errMsg);
-                return;
-            }
-            MySqlTransaction _transaction = _connection.BeginTransaction();
-            _sqlQuery = "insert into t_dokumentasi (berkas) values (@berkas)";
-            MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection, _transaction);
-
-            cmd.Parameters.Add("@berkas", MySqlDbType.MediumBlob);
-
-            cmd.Parameters["@jenis"].Value = ImageData;
-
-            int rowsAffected = 0;
-
-            try
-            {
-                rowsAffected = cmd.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
-                return;
-            }
-
-            if (errMsg != "")
-            {
-                _transaction.Rollback();
-                MessageBox.Show(errMsg);
-                return;
-            }
-
-            if (rowsAffected > 0)
-            {
-                MessageBox.Show("Penyimpanan Berhasil");
-            }
-
-            _transaction.Commit();
             _connection.Close();
         }
     }
