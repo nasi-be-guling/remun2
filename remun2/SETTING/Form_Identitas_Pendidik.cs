@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using _connectMySQL;
+using _encryption;
 
 namespace remun2.SETTING
 {
@@ -289,6 +290,30 @@ namespace remun2.SETTING
                 return;
             }
 
+            foreach (Control txtPassword in Controls)
+            {
+                if (txtPassword.Name == "txtPasswd1" || txtPassword.Name == "txtPasswd2")
+                {
+                    if (txtPassword.Text.Length < 6)
+                    {
+                        MessageBox.Show("Password minimal 6 (Enam) karakter", "Error");
+                        txtPasswd1.Clear();
+                        txtPasswd2.Clear();
+                        txtPasswd1.Focus();
+                        return;
+                    }
+                }
+            }
+
+            if (txtPasswd2.Text != txtPasswd1.Text)
+            {
+                MessageBox.Show("Password dan Ulangi tidak sama, tolong samakan", "ERROR");
+                txtPasswd1.Clear();
+                txtPasswd2.Clear();
+                txtPasswd1.Focus();
+                return;
+            }
+
             string errMsg = "";
             _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
             if (errMsg != "")
@@ -298,9 +323,9 @@ namespace remun2.SETTING
             }
             MySqlTransaction _transaction = _connection.BeginTransaction();
             _sqlQuery = "insert into t_identitas (noSertifikat, nip, nidn, nama, jurusan, prodi, jabFung, tglLahir, tempatLhr, s1, s2, s3, jenis, bidangIlmu, " +
-                " noHP, atasanLangsung, email, statusPK, statusDP) " +
+                " noHP, atasanLangsung, email, statusPK, statusDP, passwd) " +
                 " values (@noSertifikat, @nip, @nidn, @nama, @jurusan, @prodi, @jabFung, @tglLahir, @tempatLhr, @s1, @s2, @s3, @jenis, @bidangIlmu, " +
-                " @noHP, @atasanLangsung, @email, @statusPK, @statusDP);";
+                " @noHP, @atasanLangsung, @email, @statusPK, @statusDP, @passwd);";
             MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection, _transaction);
 
             cmd.Parameters.Add("@noSertifikat", MySqlDbType.VarChar, 50);
@@ -322,6 +347,7 @@ namespace remun2.SETTING
             cmd.Parameters.Add("@email", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@statusPK", MySqlDbType.Bit, 1);
             cmd.Parameters.Add("@statusDP", MySqlDbType.Bit, 1);
+            cmd.Parameters.Add("@passwd", MySqlDbType.VarChar, 50);
 
             cmd.Parameters["@noSertifikat"].Value = txtNoSertifikat.Text;
             cmd.Parameters["@nip"].Value = txtNIP.Text;
@@ -342,7 +368,7 @@ namespace remun2.SETTING
             cmd.Parameters["@email"].Value = txtEmail.Text;
             cmd.Parameters["@statusPK"].Value = "0";
             cmd.Parameters["@statusDP"].Value = "1";
-
+            cmd.Parameters["@passwd"].Value = CStringCipher.Encrypt(txtPasswd2.Text, "hjsu939LpTie");
 
             int rowsAffected = 0;
 

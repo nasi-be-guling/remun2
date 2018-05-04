@@ -52,5 +52,10 @@ namespace remun2.CLASS
             }
             return false;
         }
+
+        public Form FormSudahDibuat(Type tipeForm)
+        {
+            return Application.OpenForms.Cast<Form>().FirstOrDefault(formTerbuat => formTerbuat.GetType() == tipeForm);
+        }
     }
 }
