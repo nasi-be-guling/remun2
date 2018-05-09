@@ -71,6 +71,7 @@
             this.txtNIP.Name = "txtNIP";
             this.txtNIP.Size = new System.Drawing.Size(316, 27);
             this.txtNIP.TabIndex = 1;
+            this.txtNIP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNIP_KeyPress);
             // 
             // bLogin
             // 

@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="cipher">
-      <HintPath>..\..\remun\remun\bin\Debug\cipher.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\remun\remun\bin\Debug\MySql.Data.dll</HintPath>
     </Reference>
@@ -53,6 +50,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="_connectMySQL">
       <HintPath>..\..\..\sandbox\project_dll\_connectMySQL\_connectMySQL\bin\Debug\_connectMySQL.dll</HintPath>
+    </Reference>
+    <Reference Include="_encryption, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\_encryption.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SETTING\Form_Identitas_ND.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SETTING\Form_Identitas_ND.Designer.cs">
+      <DependentUpon>Form_Identitas_ND.cs</DependentUpon>
+    </Compile>
     <Compile Include="SETTING\Form_Identitas_Pendidik.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +124,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SETTING\Form_Identitas_ND.resx">
+      <DependentUpon>Form_Identitas_ND.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SETTING\Form_Identitas_Pendidik.resx">
       <DependentUpon>Form_Identitas_Pendidik.cs</DependentUpon>
     </EmbeddedResource>

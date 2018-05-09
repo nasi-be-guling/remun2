@@ -23,11 +23,73 @@ namespace remun2.MAIN
         private readonly CLASS.Class_TOOLS _tools = new CLASS.Class_TOOLS();
         #endregion
 
-        MAIN.Form_Utama _fMainMenu;
+        MAIN.Form_Utama _fMainMenu;        
 
         public Form_Login()
         {
             InitializeComponent();
+        }
+
+        private bool Check_NIP(MySqlConnection MYSQLCONNECTION, string NIP)
+        {
+            string errMsg = "";
+            _sqlQuery = "";
+            _sqlQuery = "select id from t_identitas where nip = '" + NIP + "'";
+            MySqlDataReader reader = _connect.Reading(_sqlQuery, MYSQLCONNECTION, ref errMsg);
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return false;
+            }
+            try
+            {
+                if (reader.HasRows)
+                {
+                    reader.Close();
+                    return true;
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            return false;
+        }
+
+        private void show_custom_form(int form_index)
+        {
+            switch (form_index)
+            {
+                case 1:
+                    {
+                        SETTING.Form_Identitas_Pendidik _fIdentitasDosen;
+                        if ((_fIdentitasDosen = (SETTING.Form_Identitas_Pendidik)_tools.FormSudahDibuat(typeof(SETTING.Form_Identitas_Pendidik))) == null)
+                        {
+                            _fIdentitasDosen = new SETTING.Form_Identitas_Pendidik();
+                            _fIdentitasDosen.ShowDialog(Parent);
+                        }
+                        else
+                        {
+                            _fIdentitasDosen.Select();
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        SETTING.Form_Identitas_ND _fIdentitasNonDosen;
+                        if ((_fIdentitasNonDosen = (SETTING.Form_Identitas_ND)_tools.FormSudahDibuat(typeof(SETTING.Form_Identitas_ND))) == null)
+                        {
+                            _fIdentitasNonDosen = new SETTING.Form_Identitas_ND();
+                            _fIdentitasNonDosen.ShowDialog(Parent);
+                        }
+                        else
+                        {
+                            _fIdentitasNonDosen.Select();
+                        }
+                        break;
+                    }
+            }
         }
 
         private void bLogin_Click(object sender, EventArgs e)
@@ -42,7 +104,8 @@ namespace remun2.MAIN
                 MessageBox.Show(errMsg);
                 return;
             }
-            _sqlQuery = "select id, passwd from t_user where nip = '" + txtNIP.Text + "'";
+
+            _sqlQuery = "select id, passwd from t_identitas where nip = '" + txtNIP.Text + "'";
             MySqlDataReader reader = _connect.Reading(_sqlQuery, _connection, ref errMsg);
             if (errMsg != "")
             {
@@ -60,8 +123,21 @@ namespace remun2.MAIN
                 }
                 else
                 {
-                    MessageBox.Show("User atau password salah", "ERROR");
-                    return;
+                    if (MessageBox.Show("NIP tidak ditemukan, harap melakukan registrasi", "KONFIRMASI", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if (MessageBox.Show("Dosen?", "REGISTRASI", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            show_custom_form(1);
+                            return;
+                        }
+                        else
+                        {
+                            show_custom_form(2);
+                            return;
+                        }
+                    }
+                    else
+                        return;
                 }
             }
             catch (Exception ex)
@@ -72,24 +148,32 @@ namespace remun2.MAIN
 
             if (CStringCipher.Decrypt(password, "hjsu939LpTie") == txtPasswd.Text)
             {
-                if ((_fMainMenu = (MAIN.Form_Utama)_tools.FormSudahDibuat(typeof(MAIN.Form_Utama))) == null)
+                if ((_fMainMenu = (Form_Utama)_tools.FormSudahDibuat(typeof(Form_Utama))) == null)
                 {
-                    _fMainMenu = new MAIN.Form_Utama();
-                    _fMainMenu.ID_USER = CStringCipher.Encrypt(idUser, "hjYir83K");
+                    _fMainMenu = new Form_Utama();
+                    _fMainMenu.ID_USER = idUser;
                     _fMainMenu.Show();
                 }
                 else
                 {
-                    _fMainMenu.ID_USER = CStringCipher.Encrypt(idUser, "hjYir83K");
+                    _fMainMenu.ID_USER = idUser;
                     _fMainMenu.Load_Pegawai();
                     _fMainMenu.Select();
                 }
                 Close();
             }
             else
-                MessageBox.Show("User atau password salah", "ERROR");
+                MessageBox.Show("Password salah", "ERROR");
 
             _connection.Close();
+        }
+
+        private void txtNIP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

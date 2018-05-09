@@ -294,7 +294,7 @@ namespace remun2.ENTRY.DOSEN
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    var blob = new Byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
+                    var blob = new byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
                     reader.GetBytes(0, 0, blob, 0, blob.Length);
 
                     SaveFileDialog saveDialog1 = new SaveFileDialog();
@@ -388,7 +388,8 @@ namespace remun2.ENTRY.DOSEN
             Bersih2();
             txtJenisKegiatan.Focus();
         }
-                
+
+        public int ID_USER;
         private void bSave_Click(object sender, EventArgs e)
         {
             string errMsg = "";
@@ -437,7 +438,7 @@ namespace remun2.ENTRY.DOSEN
                 cmd.Parameters["@tahun"].Value = DateTime.Now.Year.ToString();
                 cmd.Parameters["@tanggal"].Value = DateTime.Now;
                 cmd.Parameters["@statusDP"].Value = "1";
-                cmd.Parameters["@idUser"].Value = "1";
+                cmd.Parameters["@idUser"].Value = ID_USER;
             }
 
             int rowsAffected = 0;

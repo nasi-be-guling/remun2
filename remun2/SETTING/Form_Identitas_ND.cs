@@ -13,7 +13,7 @@ using _encryption;
 
 namespace remun2.SETTING
 {
-    public partial class Form_Identitas_Pendidik : Form
+    public partial class Form_Identitas_ND : Form
     {
         #region KOMPONEN WAJIB
         private readonly CConnection _connect = new CConnection();
@@ -133,26 +133,26 @@ namespace remun2.SETTING
                 string statusPK, string statusDP)
             {
                 this.id = id;
-                this.noSertifikat = noSertifikat;              
-                this.nip = nip;                 
-                this.nidn = nidn;            
-                this.nama = nama;            
+                this.noSertifikat = noSertifikat;
+                this.nip = nip;
+                this.nidn = nidn;
+                this.nama = nama;
                 this.jurusan = jurusan;
-                this.prodi = prodi;           
-                this.jabFung = jabFung;         
-                this.tglLahir = tglLahir;         
-                this.tempatLhr = tempatLhr;       
-                this.s1 = s1;              
-                this.s2 = s2;              
-                this.s3 = s3;              
-                this.jenis = jenis;           
-                this.bidangIlmu = bidangIlmu;      
-                this.noHP = noHP;            
-                this.atasanLangsung = atasanLangsung;  
-                this.email = email;           
-                this.statusPK = statusPK;        
-                this.statusDP = statusDP;        
-        }
+                this.prodi = prodi;
+                this.jabFung = jabFung;
+                this.tglLahir = tglLahir;
+                this.tempatLhr = tempatLhr;
+                this.s1 = s1;
+                this.s2 = s2;
+                this.s3 = s3;
+                this.jenis = jenis;
+                this.bidangIlmu = bidangIlmu;
+                this.noHP = noHP;
+                this.atasanLangsung = atasanLangsung;
+                this.email = email;
+                this.statusPK = statusPK;
+                this.statusDP = statusDP;
+            }
 
             public string Id
             {
@@ -261,7 +261,7 @@ namespace remun2.SETTING
 
 
 
-        public Form_Identitas_Pendidik()
+        public Form_Identitas_ND()
         {
             InitializeComponent();
         }
@@ -324,15 +324,13 @@ namespace remun2.SETTING
                 return;
             }
             MySqlTransaction _transaction = _connection.BeginTransaction();
-            _sqlQuery = "insert into t_identitas (noSertifikat, nip, nidn, nama, jurusan, prodi, jabFung, tglLahir, tempatLhr, s1, s2, s3, jenis, bidangIlmu, " +
+            _sqlQuery = "insert into t_identitas (nip, nama, jurusan, prodi, jabFung, tglLahir, tempatLhr, s1, s2, s3, bidangIlmu, " +
                 " noHP, atasanLangsung, atasanNIP, email, statusPK, statusDP, passwd, tgl_entry) " +
-                " values (@noSertifikat, @nip, @nidn, @nama, @jurusan, @prodi, @jabFung, @tglLahir, @tempatLhr, @s1, @s2, @s3, @jenis, @bidangIlmu, " +
+                " values (@nip, @nama, @jurusan, @prodi, @jabFung, @tglLahir, @tempatLhr, @s1, @s2, @s3, @bidangIlmu, " +
                 " @noHP, @atasanLangsung, @atasanNIP, @email, @statusPK, @statusDP, @passwd, @tgl_entry);";
             MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection, _transaction);
 
-            cmd.Parameters.Add("@noSertifikat", MySqlDbType.VarChar, 50);
             cmd.Parameters.Add("@nip", MySqlDbType.VarChar, 50);
-            cmd.Parameters.Add("@nidn", MySqlDbType.VarChar, 50);
             cmd.Parameters.Add("@nama", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@jurusan", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@prodi", MySqlDbType.VarChar, 255);
@@ -342,7 +340,6 @@ namespace remun2.SETTING
             cmd.Parameters.Add("@s1", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@s2", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@s3", MySqlDbType.VarChar, 255);
-            cmd.Parameters.Add("@jenis", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@bidangIlmu", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@noHP", MySqlDbType.VarChar, 255);
             cmd.Parameters.Add("@atasanLangsung", MySqlDbType.VarChar, 255);
@@ -353,25 +350,22 @@ namespace remun2.SETTING
             cmd.Parameters.Add("@passwd", MySqlDbType.VarChar, 50);
             cmd.Parameters.Add("@tgl_entry", MySqlDbType.DateTime);
 
-            cmd.Parameters["@noSertifikat"].Value = txtNoSertifikat.Text;
             cmd.Parameters["@nip"].Value = txtNIP.Text;
-            cmd.Parameters["@nidn"].Value = txtNIDN.Text;
             cmd.Parameters["@nama"].Value = txtNama.Text;
             cmd.Parameters["@jurusan"].Value = cbJurusan.Text;
             cmd.Parameters["@prodi"].Value = cbProgStudi.Text;
             cmd.Parameters["@jabFung"].Value = txtJabFungsional.Text;
             cmd.Parameters["@tglLahir"].Value = String.Format("{0:yyyy-MM-dd}", dtpTglLahir.Value);
             cmd.Parameters["@tempatLhr"].Value = txtTempatLhr.Text;
-            cmd.Parameters["@s1"].Value = txtS1.Text;
-            cmd.Parameters["@s2"].Value = txtS2.Text;
-            cmd.Parameters["@s3"].Value = txtS3.Text;
-            cmd.Parameters["@jenis"].Value = cbJenis.Text.Split(' ')[0];
+            cmd.Parameters["@s1"].Value = txtS1.Text.ToUpper();
+            cmd.Parameters["@s2"].Value = txtS2.Text.ToUpper();
+            cmd.Parameters["@s3"].Value = txtS3.Text.ToUpper();
             cmd.Parameters["@bidangIlmu"].Value = txtBidangIlmu.Text;
             cmd.Parameters["@noHP"].Value = txtNoHP.Text;
             cmd.Parameters["@atasanLangsung"].Value = txtAtasanLangsung.Text;
             cmd.Parameters["@atasanNIP"].Value = txtNIPAtasan.Text;
             cmd.Parameters["@email"].Value = txtEmail.Text;
-            cmd.Parameters["@statusPK"].Value = "0";
+            cmd.Parameters["@statusPK"].Value = "1";
             cmd.Parameters["@statusDP"].Value = "1";
             cmd.Parameters["@passwd"].Value = CStringCipher.Encrypt(txtPasswd2.Text, "hjsu939LpTie");
             cmd.Parameters["@tgl_entry"].Value = DateTime.Now;
@@ -434,6 +428,7 @@ namespace remun2.SETTING
         {
             cbProgStudi.Text = string.Empty;
             cbProgStudi.Items.Clear();
+
             if (cbJurusan.SelectedIndex == 0)
             {
                 cbProgStudi.Items.AddRange(new string[] {"DIREKSI", "ADUM", "ADAK", "UNIT USAHA&KERJASAMA", "UNIT PPM", "UNIT LABORATORIUM", "UNIT LAYANAN PENGADAAN", "UNIT PENJAMINAN MUTU",
@@ -456,26 +451,25 @@ namespace remun2.SETTING
             }
             else if (cbJurusan.SelectedIndex == 4)
             {
-                cbProgStudi.Items.AddRange(new string[] {"D4 ANALIS KESEHATAN", "D3 ANALIS KESEHATAN"});
+                cbProgStudi.Items.AddRange(new string[] { "D4 ANALIS KESEHATAN", "D3 ANALIS KESEHATAN" });
             }
             else if (cbJurusan.SelectedIndex == 5)
             {
-                cbProgStudi.Items.AddRange(new string[] {"D4 TEKNIK ELEKTROMEDIK", "D3 TEKNIK ELEKTROMEDIK"});
+                cbProgStudi.Items.AddRange(new string[] { "D4 TEKNIK ELEKTROMEDIK", "D3 TEKNIK ELEKTROMEDIK" });
             }
             else if (cbJurusan.SelectedIndex == 6)
             {
-                cbProgStudi.Items.AddRange(new string[] {"D4 KEPERAWATAN GIGI", "D3 KEPERAWATAN GIGI"});
+                cbProgStudi.Items.AddRange(new string[] { "D4 KEPERAWATAN GIGI", "D3 KEPERAWATAN GIGI" });
             }
             else if (cbJurusan.SelectedIndex == 7)
             {
-                cbProgStudi.Items.AddRange(new string[] {"D3 GIZI"});
+                cbProgStudi.Items.AddRange(new string[] { "D3 GIZI" });
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(String.Format("{0:yyyy-MM-dd}", dtpTglLahir.Value));
-            MessageBox.Show(cbJenis.Text.Split(' ')[0]);
         }
 
         private void cbJenis_KeyPress(object sender, KeyPressEventArgs e)
