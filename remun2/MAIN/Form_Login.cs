@@ -94,7 +94,7 @@ namespace remun2.MAIN
 
         private void bLogin_Click(object sender, EventArgs e)
         {
-            string idUser = "";
+            int idUser;
             string password = "";
             string errMsg = "";
             _sqlQuery = "";
@@ -117,8 +117,8 @@ namespace remun2.MAIN
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    idUser = reader[0].ToString();
-                    password = reader[1].ToString();
+                    idUser = reader.GetInt16(0);
+                    password = reader.GetString(1);
                     reader.Close();
                 }
                 else

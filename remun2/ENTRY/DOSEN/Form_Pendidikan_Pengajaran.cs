@@ -392,6 +392,8 @@ namespace remun2.ENTRY.DOSEN
         public int ID_USER;
         private void bSave_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Apakah Sudah Yakin Akan Menyimpan data?", "KONFIRMASI", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
             string errMsg = "";
             _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
             if (errMsg != "")
@@ -420,43 +422,35 @@ namespace remun2.ENTRY.DOSEN
             cmd.Parameters.Add("@statusDP", MySqlDbType.Bit, 1);
             cmd.Parameters.Add("@idUser", MySqlDbType.Int16, 11);
 
-            MessageBox.Show(DateTime.Now.ToString());
-
-            foreach (ListViewItem items in lvTampil.Items)
-            {
-                //MessageBox.Show(items.SubItems[1].Text + "|" + items.SubItems[2].Text + "|" + items.SubItems[3].Text + "|" + items.SubItems[4].Text + 
-                //    "|" + items.SubItems[5].Text + "|" + items.SubItems[6].Text + "|" + items.SubItems[7].Text);
-                cmd.Parameters["@tipeUnsur"].Value = "1";
-                cmd.Parameters["@jenisKegiatan"].Value = items.SubItems[1].Text;
-                cmd.Parameters["@buktiPenugasan"].Value = items.SubItems[2].Text;
-                cmd.Parameters["@jamTarget"].Value = items.SubItems[3].Text;
-                cmd.Parameters["@masaPenugasan"].Value = items.SubItems[4].Text;
-                cmd.Parameters["@buktiDokumen"].Value = items.SubItems[5].Text;
-                cmd.Parameters["@jamCapaian"].Value = items.SubItems[6].Text;
-                cmd.Parameters["@rekomendasi"].Value = items.SubItems[7].Text;
-                cmd.Parameters["@bulan"].Value = DateTime.Now.Month.ToString();
-                cmd.Parameters["@tahun"].Value = DateTime.Now.Year.ToString();
-                cmd.Parameters["@tanggal"].Value = DateTime.Now;
-                cmd.Parameters["@statusDP"].Value = "1";
-                cmd.Parameters["@idUser"].Value = ID_USER;
-            }
-
             int rowsAffected = 0;
 
             try
             {
-                rowsAffected = cmd.ExecuteNonQuery();
+                foreach (ListViewItem items in lvTampil.Items)
+                {
+                    //MessageBox.Show(items.SubItems[1].Text + "|" + items.SubItems[2].Text + "|" + items.SubItems[3].Text + "|" + items.SubItems[4].Text + 
+                    //    "|" + items.SubItems[5].Text + "|" + items.SubItems[6].Text + "|" + items.SubItems[7].Text);
+                    cmd.Parameters["@tipeUnsur"].Value = TIPE_UNSUR;
+                    cmd.Parameters["@jenisKegiatan"].Value = items.SubItems[1].Text;
+                    cmd.Parameters["@buktiPenugasan"].Value = items.SubItems[2].Text;
+                    cmd.Parameters["@jamTarget"].Value = items.SubItems[3].Text;
+                    cmd.Parameters["@masaPenugasan"].Value = items.SubItems[4].Text;
+                    cmd.Parameters["@buktiDokumen"].Value = items.SubItems[5].Text;
+                    cmd.Parameters["@jamCapaian"].Value = items.SubItems[6].Text;
+                    cmd.Parameters["@rekomendasi"].Value = items.SubItems[7].Text;
+                    cmd.Parameters["@bulan"].Value = DateTime.Now.Month.ToString();
+                    cmd.Parameters["@tahun"].Value = DateTime.Now.Year.ToString();
+                    cmd.Parameters["@tanggal"].Value = DateTime.Now;
+                    cmd.Parameters["@statusDP"].Value = "1";
+                    cmd.Parameters["@idUser"].Value = ID_USER;
+
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }               
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
-                return;
-            }
-
-            if (errMsg != "")
-            {
                 _transaction.Rollback();
-                MessageBox.Show(errMsg);
+                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
                 return;
             }
 
@@ -466,6 +460,60 @@ namespace remun2.ENTRY.DOSEN
                 MessageBox.Show("Penyimpanan Berhasil");
             }
             Bersih2();
+            lvTampil.Items.Clear();
+            _connection.Close();
+        }
+
+        public void LoadLVUnsur(int jenisUnsur)
+        {
+            lvTampil.Items.Clear();
+            string errMsg = "";
+            _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return;
+            }
+            _sqlQuery = "select * from t_unsur where idUser = '" + ID_USER + "' and bulan = '" + DateTime.Now.Month + "' and tahun = '" + DateTime.Now.Year +
+                "' and tipeUnsur = '" + jenisUnsur + "';";
+            MySqlDataReader reader = _connect.Reading(_sqlQuery, _connection, ref errMsg);
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return;
+            }
+            try
+            {
+                if (reader.HasRows)
+                {
+                    int noUrut = 1;
+                    bSave.Enabled = false;
+                    while (reader.Read())
+                    {
+                        ListViewItem items = new ListViewItem(noUrut++.ToString());
+                        items.SubItems.Add(reader.GetString(2));
+                        items.SubItems.Add(reader.GetString(3));
+                        items.SubItems.Add(reader.GetString(4));
+                        items.SubItems.Add(reader.GetString(5));
+                        items.SubItems.Add(reader.GetString(6));
+                        items.SubItems.Add(reader.GetString(7));
+                        items.SubItems.Add(reader.GetString(8));
+                        lvTampil.Items.Add(items);
+                    }
+                    reader.Close();
+                }
+                else
+                {
+                    _connection.Close();
+                    bSave.Enabled = true;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             _connection.Close();
         }
 
@@ -633,6 +681,15 @@ namespace remun2.ENTRY.DOSEN
 
             _transaction.Commit();
             _connection.Close();
+        }
+
+        int TIPE_UNSUR;
+
+        public void FormSettings(string FormCaption, int TipeUnsur)
+        {
+            Text = FormCaption;
+            label9.Text = FormCaption;
+            TIPE_UNSUR = TipeUnsur;
         }
     }
 }

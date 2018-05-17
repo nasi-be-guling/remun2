@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CLASS\Class_TOOLS.cs" />
+    <Compile Include="ENTRY\DOSEN\Form_Dosen_DTT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ENTRY\DOSEN\Form_Dosen_DTT.Designer.cs">
+      <DependentUpon>Form_Dosen_DTT.cs</DependentUpon>
+    </Compile>
     <Compile Include="ENTRY\DOSEN\Form_Pendidikan_Pengajaran.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     <Compile Include="SETTING\Form_Set_Identitas_Kampus.Designer.cs">
       <DependentUpon>Form_Set_Identitas_Kampus.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ENTRY\DOSEN\Form_Dosen_DTT.resx">
+      <DependentUpon>Form_Dosen_DTT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ENTRY\DOSEN\Form_Pendidikan_Pengajaran.resx">
       <DependentUpon>Form_Pendidikan_Pengajaran.cs</DependentUpon>
     </EmbeddedResource>

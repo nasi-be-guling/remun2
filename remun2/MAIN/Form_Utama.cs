@@ -138,7 +138,7 @@ namespace remun2.MAIN
                 MessageBox.Show(errMsg);
                 return;
             }
-            _sqlQuery = "select * from t_identitas where id = '" + ID_USER + "'";
+            _sqlQuery = "select * from t_identitas where id = '" + ID_USER + "';";
             MySqlDataReader reader = _connect.Reading(_sqlQuery, _connection, ref errMsg);
             if (errMsg != "")
             {
@@ -246,9 +246,21 @@ namespace remun2.MAIN
             {
                 show_custom_form(11);
             }
-            if (menuItem.Name == "mPendidikanPengajaran_init")
+            if (menuItem.Name == "mPenelitian")
             {
-
+                show_custom_form(13);
+            }
+            if (menuItem.Name == "mPengabmas")
+            {
+                show_custom_form(14);
+            }
+            if (menuItem.Name == "mPenunjang")
+            {
+                show_custom_form(15);
+            }
+            if (menuItem.Name == "mDosenDTT")
+            {
+                show_custom_form(16);
             }
             if (menuItem.Name == "mSettingIdentitasND")
             {
@@ -289,19 +301,130 @@ namespace remun2.MAIN
                             if ((_fPendidikanPengajaran = (ENTRY.DOSEN.Form_Pendidikan_Pengajaran)_tools.FormSudahDibuat(typeof(ENTRY.DOSEN.Form_Pendidikan_Pengajaran))) == null)
                             {
                                 _fPendidikanPengajaran = new ENTRY.DOSEN.Form_Pendidikan_Pengajaran();
+                                _fPendidikanPengajaran.MaximizeBox = false;
+                                _fPendidikanPengajaran.MinimizeBox = false;
+                                _fPendidikanPengajaran.ShowIcon = false;
                                 _fPendidikanPengajaran.ID_USER = ID_USER;
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENDIDIKAN DAN PENGAJARAN", 1);
+                                _fPendidikanPengajaran.LoadLVUnsur(1);
                                 _fPendidikanPengajaran.MdiParent = this;
                                 _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
                                 _fPendidikanPengajaran.Show();
                             }
                             else
                             {
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENDIDIKAN DAN PENGAJARAN", 1);
+                                _fPendidikanPengajaran.LoadLVUnsur(1);
                                 _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
                                 _fPendidikanPengajaran.Select();
                             }
                             break;
                         }
-                    }                    
+                    }
+                case 13: // FORM ENTRY PENELITIAN DOSEN
+                    {
+                        {
+                            ENTRY.DOSEN.Form_Pendidikan_Pengajaran _fPendidikanPengajaran;
+                            if ((_fPendidikanPengajaran = (ENTRY.DOSEN.Form_Pendidikan_Pengajaran)_tools.FormSudahDibuat(typeof(ENTRY.DOSEN.Form_Pendidikan_Pengajaran))) == null)
+                            {
+                                _fPendidikanPengajaran = new ENTRY.DOSEN.Form_Pendidikan_Pengajaran();
+                                _fPendidikanPengajaran.MaximizeBox = false;
+                                _fPendidikanPengajaran.MinimizeBox = false;
+                                _fPendidikanPengajaran.ShowIcon = false;
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.ID_USER = ID_USER;
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENELITIAN", 2);
+                                _fPendidikanPengajaran.LoadLVUnsur(2);
+                                _fPendidikanPengajaran.MdiParent = this;
+                                _fPendidikanPengajaran.Show();
+                            }
+                            else
+                            {
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENELITIAN", 2);
+                                _fPendidikanPengajaran.LoadLVUnsur(2);
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.Select();
+                            }
+                            break;
+                        }
+                    }
+                case 14: // FORM ENTRY PENGABMAS DOSEN
+                    {
+                        {
+                            ENTRY.DOSEN.Form_Pendidikan_Pengajaran _fPendidikanPengajaran;
+                            if ((_fPendidikanPengajaran = (ENTRY.DOSEN.Form_Pendidikan_Pengajaran)_tools.FormSudahDibuat(typeof(ENTRY.DOSEN.Form_Pendidikan_Pengajaran))) == null)
+                            {
+                                _fPendidikanPengajaran = new ENTRY.DOSEN.Form_Pendidikan_Pengajaran();
+                                _fPendidikanPengajaran.MaximizeBox = false;
+                                _fPendidikanPengajaran.MinimizeBox = false;
+                                _fPendidikanPengajaran.ShowIcon = false;
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.ID_USER = ID_USER;
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENGABDIAN MASYARAKAT", 3);
+                                _fPendidikanPengajaran.LoadLVUnsur(3);
+                                _fPendidikanPengajaran.MdiParent = this;
+                                _fPendidikanPengajaran.Show();
+                            }
+                            else
+                            {
+                                _fPendidikanPengajaran.FormSettings("ENTRY PENGABDIAN MASYARAKAT", 3);
+                                _fPendidikanPengajaran.LoadLVUnsur(3);
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.Select();
+                            }
+                            break;
+                        }
+                    }
+                case 15: // FORM ENTRY KEGIATAN PENUNJANG DOSEN
+                    {
+                        {
+                            ENTRY.DOSEN.Form_Pendidikan_Pengajaran _fPendidikanPengajaran;
+                            if ((_fPendidikanPengajaran = (ENTRY.DOSEN.Form_Pendidikan_Pengajaran)_tools.FormSudahDibuat(typeof(ENTRY.DOSEN.Form_Pendidikan_Pengajaran))) == null)
+                            {
+                                _fPendidikanPengajaran = new ENTRY.DOSEN.Form_Pendidikan_Pengajaran();
+                                _fPendidikanPengajaran.MaximizeBox = false;
+                                _fPendidikanPengajaran.MinimizeBox = false;
+                                _fPendidikanPengajaran.ShowIcon = false;
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.ID_USER = ID_USER;
+                                _fPendidikanPengajaran.FormSettings("ENTRY KEGIATAN PENUNJANG", 4);
+                                _fPendidikanPengajaran.LoadLVUnsur(4);
+                                _fPendidikanPengajaran.MdiParent = this;
+                                _fPendidikanPengajaran.Show();
+                            }
+                            else
+                            {
+                                _fPendidikanPengajaran.FormSettings("ENTRY KEGIATAN PENUNJANG", 4);
+                                _fPendidikanPengajaran.LoadLVUnsur(4);
+                                _fPendidikanPengajaran.WindowState = FormWindowState.Maximized;
+                                _fPendidikanPengajaran.Select();
+                            }
+                            break;
+                        }
+                    }
+                case 16: // FORM ENTRY BAGI DOSEN DENGAN TUGAS TAMBAHAN (DTT) DI LUAR TUGAS UTAMA SEBAGAI DOSEN BIASA (DS)
+                    {
+                        {
+                            ENTRY.DOSEN.Form_Dosen_DTT __fDosenDTT;
+                            if ((__fDosenDTT = (ENTRY.DOSEN.Form_Dosen_DTT)_tools.FormSudahDibuat(typeof(ENTRY.DOSEN.Form_Dosen_DTT))) == null)
+                            {
+                                __fDosenDTT = new ENTRY.DOSEN.Form_Dosen_DTT();
+                                __fDosenDTT.MaximizeBox = false;
+                                __fDosenDTT.MinimizeBox = false;
+                                __fDosenDTT.ShowIcon = false;
+                                __fDosenDTT.WindowState = FormWindowState.Maximized;
+                                __fDosenDTT.ID_USER = ID_USER;
+                                __fDosenDTT.MdiParent = this;
+                                __fDosenDTT.Show();
+                            }
+                            else
+                            {
+                                __fDosenDTT.WindowState = FormWindowState.Maximized;
+                                __fDosenDTT.Select();
+                            }
+                            break;
+                        }
+                    }
                 case 21: // FORM SETTING IDENTITAS NON DOSEN
                     {
                         SETTING.Form_Identitas_ND _fIdentitasNonDosen;

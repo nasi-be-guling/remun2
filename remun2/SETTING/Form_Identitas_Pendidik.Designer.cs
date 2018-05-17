@@ -389,8 +389,8 @@
             this.cbJenis.FormattingEnabled = true;
             this.cbJenis.Items.AddRange(new object[] {
             "DS - Dosen Biasa",
-            "DTT - Dosen Tambah Tugas",
-            "DT - Dosen Tugas Tambahan"});
+            "DTT - Dosen Tugas Tambahan",
+            "DT - Dosen Tambah Tugas"});
             this.cbJenis.Location = new System.Drawing.Point(238, 369);
             this.cbJenis.Name = "cbJenis";
             this.cbJenis.Size = new System.Drawing.Size(288, 28);
