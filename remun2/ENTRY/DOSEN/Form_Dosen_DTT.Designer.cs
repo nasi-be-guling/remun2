@@ -50,6 +50,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mohonTidakRightClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -293,6 +294,7 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.bSave);
             this.panel1.Controls.Add(this.cbKepanitiaanDiluarTugasUtama);
@@ -342,6 +344,16 @@
             this.mohonTidakRightClickToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.mohonTidakRightClickToolStripMenuItem.Text = "Mohon Tidak Right Click";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(434, 441);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 33);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form_Dosen_DTT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mohonTidakRightClickToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
