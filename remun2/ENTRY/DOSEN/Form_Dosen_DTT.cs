@@ -506,7 +506,7 @@ namespace remun2.ENTRY.DOSEN
                 Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
 
                 //Set animation status for word application
-                winword.ShowAnimation = false;
+                //winword.showa = false;
 
                 //Set status for word application is to be visible or not.
                 winword.Visible = false;
@@ -591,7 +591,7 @@ namespace remun2.ENTRY.DOSEN
 
                 //Save the document
                 object filename = @"d:\temp1.docx";
-                document.SaveAs2(ref filename);
+                document.SaveAs(ref filename);
                 document.Close(ref missing, ref missing, ref missing);
                 document = null;
                 winword.Quit(ref missing, ref missing, ref missing);
@@ -600,7 +600,8 @@ namespace remun2.ENTRY.DOSEN
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                cbPengakuanBebanKinerja.Text = ex.Message;
+                //MessageBox.Show(ex.Message);
             }
         }
     }

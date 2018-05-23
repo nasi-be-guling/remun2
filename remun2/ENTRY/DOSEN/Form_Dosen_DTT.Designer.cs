@@ -47,10 +47,10 @@
             this.cbKepanitiaanDiluarTugasUtama = new System.Windows.Forms.ComboBox();
             this.bSave = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mohonTidakRightClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -318,6 +318,16 @@
             this.panel1.Size = new System.Drawing.Size(947, 508);
             this.panel1.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(434, 441);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 33);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -343,16 +353,6 @@
             this.mohonTidakRightClickToolStripMenuItem.Name = "mohonTidakRightClickToolStripMenuItem";
             this.mohonTidakRightClickToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.mohonTidakRightClickToolStripMenuItem.Text = "Mohon Tidak Right Click";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(434, 441);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 33);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form_Dosen_DTT
             // 
