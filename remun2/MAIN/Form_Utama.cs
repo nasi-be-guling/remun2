@@ -208,6 +208,10 @@ namespace remun2.MAIN
                         {
                             ToolStripMenuItem SSMenu = new ToolStripMenuItem(item.Text, null, new EventHandler(ChildClick), item.Nama);
                             entryToolStripMenuItem.DropDownItems.Add(SSMenu);
+                            if (item.Nama == "mPenunjang")
+                            {
+                                entryToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+                            }
                         }
                         if (item.ParentMenu == "report")
                         {

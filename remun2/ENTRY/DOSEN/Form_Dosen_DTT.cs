@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using _encryption;
 using _connectMySQL;
-using Microsoft.Office.Interop.Word;
+using Xceed.Words.NET;
+using System.IO;
 
 namespace remun2.ENTRY.DOSEN
 {
@@ -495,114 +496,216 @@ namespace remun2.ENTRY.DOSEN
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CreateDocument();
+            //CreateDocument();
+            CreateDocX();
+            //GetLogoImage("3");
         }
 
-        private void CreateDocument()
+        private MemoryStream GetLogoImage(string ID_IMAGE)
         {
+            string errMsg = "";
+            MemoryStream memoriohmemori = null;
+            _connection = _connect.Connect(_configurationManager, ref errMsg, "GhY873LhT");
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return null;
+            }
+
+            _sqlQuery = "select berkas from t_dokumentasi where id = @id";
+            MySqlCommand cmd = new MySqlCommand(_sqlQuery, _connection);
+
+            cmd.Parameters.AddWithValue("@id", ID_IMAGE);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (errMsg != "")
+            {
+                MessageBox.Show(errMsg);
+                return null;
+            }
             try
             {
-                //Create an instance for word app
-                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-
-                //Set animation status for word application
-                //winword.showa = false;
-
-                //Set status for word application is to be visible or not.
-                winword.Visible = false;
-
-                //Create a missing variable for missing value
-                object missing = System.Reflection.Missing.Value;
-
-                //Create a new document
-                Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-
-                //Add header into the document
-                foreach (Section section in document.Sections)
+                if (reader.HasRows)
                 {
-                    //Get the header range and add the header details.
-                    Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 10;
-                    headerRange.Text = "Header text goes here";
+                    reader.Read();
+                    var blob = new byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
+                    reader.GetBytes(0, 0, blob, 0, blob.Length);
+
+                    SaveFileDialog saveDialog1 = new SaveFileDialog();
+                    saveDialog1.Filter = "Microsoft document file|*.docx";
+                    saveDialog1.RestoreDirectory = true;
+                    saveDialog1.FileName = "PEDOMAN PENETAPAN INDIKATOR KINERJA INDIVIDU DOSEN";
+
+                    memoriohmemori = new MemoryStream(blob);
+
+                    reader.Close();
                 }
-
-                //Add the footers into the document
-                foreach (Section wordSection in document.Sections)
-                {
-                    //Get the footer range and add the footer details.
-                    Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = WdColorIndex.wdDarkRed;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "Footer text goes here";
-                }
-
-                //adding text to document
-                document.Content.SetRange(0, 0);
-                document.Content.Text = "This is test document " + Environment.NewLine;
-
-                //Add paragraph with Heading 1 style
-                Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading1 = "Heading 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = "Para 1 text";
-                para1.Range.InsertParagraphAfter();
-
-                //Add paragraph with Heading 2 style
-                Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Heading 2";
-                para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
-                para2.Range.InsertParagraphAfter();
-
-                //Create a 5X5 table and insert some dummy record
-                Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
-
-                firstTable.Borders.Enable = 1;
-                foreach (Row row in firstTable.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        //Header row
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
-                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            //Center alignment for the Header cells
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-
-                        }
-                        //Data row
-                        else
-                        {
-                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                        }
-                    }
-                }
-
-                //Save the document
-                object filename = @"d:\temp1.docx";
-                document.SaveAs(ref filename);
-                document.Close(ref missing, ref missing, ref missing);
-                document = null;
-                winword.Quit(ref missing, ref missing, ref missing);
-                winword = null;
-                MessageBox.Show("Document created successfully !");
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                cbPengakuanBebanKinerja.Text = ex.Message;
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show("Terjadi kesalahan dengan kode:" + ex.Message);
             }
+            _connection.Close();
+            return memoriohmemori;
         }
+
+        #region CREATE DOCX DOCUMENT USING OPEN Xceed DOCX :)
+        private void CreateDocX()
+        {
+            string fileName = @"D:\DocXExample.docx";
+
+            // Create a document in memory:
+            var doc = DocX.Create(fileName);
+
+            doc.MarginTop = 70;
+            doc.MarginBottom = 70;
+            doc.MarginLeft = 70;
+            doc.MarginRight = 70;
+
+            doc.PageLayout.Orientation = Xceed.Words.NET.Orientation.Landscape;
+
+            Xceed.Words.NET.Image LogoKemenkes = doc.AddImage(GetLogoImage("7"));
+            Xceed.Words.NET.Image LogoPoltekkes = doc.AddImage(GetLogoImage("8"));
+
+            // Create a picture (A custom view of an Image).
+            Picture pictureKemenkes = LogoKemenkes.CreatePicture();
+            Picture picturePoltekkes = LogoPoltekkes.CreatePicture();
+
+            pictureKemenkes.Height = 133;
+            pictureKemenkes.Width = 127;
+
+            picturePoltekkes.Height = 131;
+            picturePoltekkes.Width = 135;
+
+            // Insert a new Paragraph into the document.
+            Paragraph title = doc.InsertParagraph().AppendPicture(pictureKemenkes).Append("LAPORAN KINERJA DOSEN").
+                FontSize(20).Font("Arial").AppendPicture(picturePoltekkes);
+            title.Alignment = Alignment.center;
+
+            // Insert a new Paragraph into the document.
+            Paragraph p1 = doc.InsertParagraph();
+
+            // Append content to the Paragraph
+            p1.AppendLine("Check out this picture ").AppendPicture(pictureKemenkes).Append(" its funky don't you think?");
+            p1.AppendLine();
+
+            p1.AppendPicture(picturePoltekkes);
+            // Insert a paragrpah:
+
+            doc.InsertParagraph("This is my first paragraph");
+
+            // Save to the output directory:
+            doc.Save();
+        }
+        #endregion
+
+        #region ONLY WORK WITH INTEROP/MICROSOFT WORD INSTALLED
+        //private void CreateDocument()
+        //{
+        //    try
+        //    {
+        //        //Create an instance for word app
+        //        Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+
+        //        //Set animation status for word application
+        //        //winword.showa = false;
+
+        //        //Set status for word application is to be visible or not.
+        //        winword.Visible = false;
+
+        //        //Create a missing variable for missing value
+        //        object missing = System.Reflection.Missing.Value;
+
+        //        //Create a new document
+        //        Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+
+        //        //Add header into the document
+        //        foreach (Section section in document.Sections)
+        //        {
+        //            //Get the header range and add the header details.
+        //            Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        //            headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+        //            headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+        //            headerRange.Font.ColorIndex = WdColorIndex.wdBlue;
+        //            headerRange.Font.Size = 10;
+        //            headerRange.Text = "Header text goes here";
+        //        }
+
+        //        //Add the footers into the document
+        //        foreach (Section wordSection in document.Sections)
+        //        {
+        //            //Get the footer range and add the footer details.
+        //            Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        //            footerRange.Font.ColorIndex = WdColorIndex.wdDarkRed;
+        //            footerRange.Font.Size = 10;
+        //            footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+        //            footerRange.Text = "Footer text goes here";
+        //        }
+
+        //        //adding text to document
+        //        document.Content.SetRange(0, 0);
+        //        document.Content.Text = "This is test document " + Environment.NewLine;
+
+        //        //Add paragraph with Heading 1 style
+        //        Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+        //        object styleHeading1 = "Heading 1";
+        //        para1.Range.set_Style(ref styleHeading1);
+        //        para1.Range.Text = "Para 1 text";
+        //        para1.Range.InsertParagraphAfter();
+
+        //        //Add paragraph with Heading 2 style
+        //        Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+        //        object styleHeading2 = "Heading 2";
+        //        para2.Range.set_Style(ref styleHeading2);
+        //        para2.Range.Text = "Para 2 text";
+        //        para2.Range.InsertParagraphAfter();
+
+        //        //Create a 5X5 table and insert some dummy record
+        //        Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
+
+        //        firstTable.Borders.Enable = 1;
+        //        foreach (Row row in firstTable.Rows)
+        //        {
+        //            foreach (Cell cell in row.Cells)
+        //            {
+        //                //Header row
+        //                if (cell.RowIndex == 1)
+        //                {
+        //                    cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+        //                    cell.Range.Font.Bold = 1;
+        //                    //other format properties goes here
+        //                    cell.Range.Font.Name = "verdana";
+        //                    cell.Range.Font.Size = 10;
+        //                    //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
+        //                    cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+        //                    //Center alignment for the Header cells
+        //                    cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+        //                    cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+        //                }
+        //                //Data row
+        //                else
+        //                {
+        //                    cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+        //                }
+        //            }
+        //        }
+
+        //        //Save the document
+        //        object filename = @"d:\temp1.docx";
+        //        document.SaveAs(ref filename);
+        //        document.Close(ref missing, ref missing, ref missing);
+        //        document = null;
+        //        winword.Quit(ref missing, ref missing, ref missing);
+        //        winword = null;
+        //        MessageBox.Show("Document created successfully !");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        cbPengakuanBebanKinerja.Text = ex.Message;
+        //        //MessageBox.Show(ex.Message);
+        //    }
+        //}
+        #endregion
     }
 }

@@ -599,7 +599,7 @@ namespace remun2.ENTRY.DOSEN
             try
             {
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
-                openFileDialog1.Filter = "Image Files | *.docx";
+                openFileDialog1.Filter = "Open Document Files | *.docx | Image Files | *.jpg";
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     ImageFileNames = openFileDialog1.FileName;
