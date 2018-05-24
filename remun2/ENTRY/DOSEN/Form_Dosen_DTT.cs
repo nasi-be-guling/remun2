@@ -497,8 +497,9 @@ namespace remun2.ENTRY.DOSEN
         private void button1_Click(object sender, EventArgs e)
         {
             //CreateDocument();
-            CreateDocX();
+            //CreateDocX();
             //GetLogoImage("3");
+            CreateInvoiceTemplate();
         }
 
         private MemoryStream GetLogoImage(string ID_IMAGE)
@@ -599,6 +600,460 @@ namespace remun2.ENTRY.DOSEN
         }
         #endregion
 
+        /// <summary>
+        /// The following is code snipet from c-sharpcorner.com, the author where fantastico! I though i will give up using Xceed docX wonderfull library, but this guy
+        /// from c-sharpcorner.com give me hope. The following line below is the url address for the fantastico code
+        /// https://www.c-sharpcorner.com/UploadFile/scottlysle/using-the-docx-dll-to-programmatically-create-word-documents/
+        /// The code used an obsolete method or function, i already adjust them.
+        /// </summary>
+        private void CreateInvoiceTemplate()
+
+        {
+            // Create a new document with the canned
+            // document title.  Note this is really just
+            // a document and not an actual template
+
+            DocX document = DocX.Create(@"D:\DocXExample1.docx");
+
+            // Create a table for layout purposes
+            // (This table will be invisible).
+            // Document content will be placed into various cells
+            // within this table
+
+            Table layout_table = document.InsertTable(2, 2);
+            layout_table.Design = TableDesign.TableNormal;
+            layout_table.AutoFit = AutoFit.Window;
+
+            #region Create document style
+
+
+
+            // create formatting styles that will be used
+
+            // to define the appearance of the document
+
+            // once populated with actual data
+
+
+
+            // Large Dark formatting - for titles
+
+            Formatting large_dark_formatting = new Formatting();
+
+            large_dark_formatting.Bold = true;
+
+            large_dark_formatting.Size = 16;
+
+            large_dark_formatting.FontColor = Color.Black;
+
+
+
+            // Dark formatting
+
+            Formatting dark_formatting = new Formatting();
+
+            dark_formatting.Bold = true;
+
+            dark_formatting.Size = 12;
+
+            dark_formatting.FontColor = Color.Black;
+
+
+
+            // Light formatting
+
+            Formatting light_formatting = new Formatting();
+
+            light_formatting.Italic = true;
+
+            light_formatting.Size = 11;
+
+            light_formatting.FontColor = Color.Black;
+
+
+
+            #endregion
+
+            #region Company Name
+
+            CustomProperty company_name =
+                new CustomProperty("company_name", "Company Name");
+
+            // Put the document property into the table at the
+            // correct location and apply the display style
+            // Force the next text insert to be on a new line.
+
+
+
+            #endregion
+
+
+
+
+
+            #region Company Slogan
+
+
+
+            // use the same approach used with the company name to
+
+            // insert a new property under the company name; this
+
+            // property will display the company slogan using a
+
+            // smaller font and in italics
+
+
+
+            // Create a custom property called company_slogan
+
+            CustomProperty company_slogan =
+
+                new CustomProperty("company_slogan",
+
+                    "Company slogan goes here.");
+
+
+
+            // Insert a field of type doc property
+
+            // (This will display the custom property 'company_slogan')
+
+            #endregion
+
+
+
+
+
+            #region Company Logo
+
+            // Get the upper right Paragraph in the layout_table.
+            // Add a template logo image to this document.
+
+            Xceed.Words.NET.Image logo = document.AddImage(GetLogoImage("7"));
+
+
+
+            // Insert this template logo into the upper right Paragraph.
+            Paragraph upper_left_paragraph =
+
+                layout_table.Rows[0].Cells[0].InsertParagraph();
+
+            Picture picture_logo = logo.CreatePicture();
+
+            upper_left_paragraph.InsertPicture(picture_logo);
+
+            upper_left_paragraph.Alignment = Alignment.left;
+
+            #endregion
+
+
+
+            #region Hired Company Address
+
+
+
+            // Create a custom property called
+
+            // company_address_line_one
+
+            CustomProperty hired_company_username =
+
+                new CustomProperty("hired_company_username",
+
+                    "User Name:");
+
+
+
+            // Create a custom property called
+
+            // company_address_line_one
+
+            CustomProperty hired_company_address_line_one =
+
+                new CustomProperty("hired_company_address_line_one",
+
+                    "Street Address,");
+
+
+
+            // Get the lower left Paragraph in the layout_table.
+
+            Paragraph lower_left_paragraph =
+
+                layout_table.Rows[1].Cells[0].InsertParagraph();
+
+
+
+            lower_left_paragraph.InsertText("TO:\n", false, dark_formatting);
+
+
+
+            // Insert a field of type doc property
+
+            // (This will display the custom property
+
+            // 'hired_company_username')
+
+            lower_left_paragraph.InsertDocProperty(
+
+                hired_company_username, false, light_formatting);
+
+
+
+            // Force the next text insert to be on a new line.
+
+            lower_left_paragraph.InsertText("\n", false);
+
+
+
+            // Insert a field of type doc property
+
+            // (This will display the custom property
+
+            // 'hired_company_address_line_one')
+
+            lower_left_paragraph.InsertDocProperty(
+
+                hired_company_address_line_one, false, light_formatting);
+
+
+
+            // Force the next text insert to be on a new line.
+
+            lower_left_paragraph.InsertText("\n", false);
+
+
+
+            // Create a custom property called
+
+            // company_address_line_two
+
+            CustomProperty hired_company_address_line_two =
+
+                new CustomProperty("hired_company_address_line_two",
+
+                    "City,");
+
+
+
+            // Insert a field of type doc property
+
+            // (This will display the custom property
+
+            // 'hired_company_address_line_two')
+
+            lower_left_paragraph.InsertDocProperty(
+
+                hired_company_address_line_two, false, light_formatting);
+
+
+
+            // Force the next text insert to be on a new line.
+
+            lower_left_paragraph.InsertText("\n", false);
+
+
+
+            // Create a custom property called company_address_line_two
+
+            CustomProperty hired_company_address_line_three =
+
+                new CustomProperty("hired_company_address_line_three",
+
+                    "Zip Code");
+
+
+
+            // Insert a field of type doc property
+
+            // (This will display the custom property
+
+            // 'hired_company_address_line_three')
+
+            lower_left_paragraph.InsertDocProperty(
+
+                hired_company_address_line_three, false, light_formatting);
+
+
+
+            #endregion
+
+
+
+            #region Date & Invoice number
+
+
+
+            // Get the lower right Paragraph from the layout table.
+
+            Paragraph lower_right_paragraph =
+
+                layout_table.Rows[1].Cells[1].InsertParagraph();
+
+
+
+            CustomProperty invoice_date =
+
+                new CustomProperty("invoice_date",
+
+                    DateTime.Today.Date.ToString("d"));
+
+
+
+            lower_right_paragraph.InsertText("Date: ",
+
+                false, dark_formatting);
+
+
+
+            lower_right_paragraph.InsertDocProperty(invoice_date, false,
+
+                light_formatting);
+
+
+
+            CustomProperty invoice_time =
+
+                new CustomProperty("invoice_time",
+
+                    DateTime.Today.Date.ToShortTimeString());
+
+
+
+            lower_right_paragraph.InsertText("\nTime: ",
+
+                false, dark_formatting);
+
+
+
+            lower_right_paragraph.InsertText("", false,
+
+                light_formatting);
+
+
+
+            lower_right_paragraph.InsertDocProperty(invoice_time, false,
+
+                light_formatting);
+
+
+
+            // set the paragraph to align against the right side
+
+            // of the invoice
+
+            lower_right_paragraph.Alignment = Alignment.right;
+
+
+
+            #endregion
+
+
+
+
+
+            #region Statement of thanks
+
+
+
+            // Insert an empty Paragraph between two Tables,
+
+            // so that they do not touch.
+
+            document.InsertParagraph(string.Empty, false);
+
+
+
+            // This table will hold all of the invoice data.
+
+            // set the table style to a canned format
+
+            Table invoice_table = document.InsertTable(7, 4);
+
+            invoice_table.Design = TableDesign.LightShadingAccent1;
+
+            invoice_table.Alignment = Alignment.center;
+
+
+
+            // A nice thank you Paragraph.
+
+            Paragraph thankyou =
+
+                document.InsertParagraph("\nThank you for your business, " +
+
+                "see us again for all of your OEM parts needs.",
+
+                false, dark_formatting);
+
+
+
+            thankyou.Alignment = Alignment.center;
+
+
+
+            #endregion
+
+
+
+            #region Hired company details
+
+
+
+            CustomProperty hired_company_details_line_one =
+
+                new CustomProperty("hired_company_details_line_one",
+
+                    "Street Address, City, ZIP Code");
+
+
+
+            CustomProperty hired_company_details_line_two =
+
+                new CustomProperty("hired_company_details_line_two",
+
+                    "Phone: 000-000-0000, Fax: 000-000-0000, " +
+
+                    "e-mail: support@companyname.com");
+
+
+
+            Paragraph companyDetails =
+
+                document.InsertParagraph(string.Empty, false);
+
+
+
+            companyDetails.InsertDocProperty(hired_company_details_line_one, false,
+
+                light_formatting);
+
+
+
+            companyDetails.InsertText("\n", false);
+
+
+
+            companyDetails.InsertDocProperty(hired_company_details_line_two, false,
+
+                light_formatting);
+
+
+
+            companyDetails.Alignment = Alignment.center;
+
+
+
+            #endregion
+
+
+
+            // Return the template document now that it has been created.
+            document.Save();
+            //return document;
+
+        }
         #region ONLY WORK WITH INTEROP/MICROSOFT WORD INSTALLED
         //private void CreateDocument()
         //{
